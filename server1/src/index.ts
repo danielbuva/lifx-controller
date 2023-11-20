@@ -14,14 +14,52 @@ const app = new Elysia()
   .get("/lights", async () => {
     return getAllLights();
   })
+  .post("/lights/:id/toggle", async ({ params }) => {
+    const data = await toggleLight(params.id);
+    console.log({ data });
+    return data;
+  })
   .listen(3000);
 
-function getAllLights() {
+async function getAllLights() {
   return new Promise((resolve, reject) => {
     const options = {
       hostname: "api.lifx.com",
       path: "/v1/lights/all",
       method: "GET",
+      headers,
+    };
+
+    const req = https.request(options, (res) => {
+      let data = "";
+
+      res.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      res.on("end", () => {
+        try {
+          resolve(JSON.parse(data));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+
+    req.on("error", (error) => {
+      reject(error);
+    });
+
+    req.end();
+  });
+}
+
+async function toggleLight(id: string) {
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: "api.lifx.com",
+      path: `/v1/lights/${id}/toggle`,
+      method: "POST",
       headers,
     };
 

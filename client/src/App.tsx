@@ -20,7 +20,7 @@ type LightsResponse = Promise<
 >;
 
 function App() {
-  const { isPending, error, data } = useQuery({
+  const { error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () =>
       fetch("http://localhost:3000/lights", {}).then(
@@ -29,14 +29,14 @@ function App() {
   });
 
   const mutation = useMutation({
-    mutationFn: async () => {
-      const response = await fetch("http://localhost:8000", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+    mutationFn: async (id: string) => {
+      const response = await fetch(
+        `http://localhost:3000/lights/id:${id}/toggle`,
+        {
+          method: "POST",
+          body: JSON.stringify({ duration: 0.5 }),
+        }
+      );
 
       const responseBody = await response.json();
 
@@ -50,16 +50,20 @@ function App() {
     },
   });
 
-  console.log({ error, isPending });
-  console.log(data);
+  console.log({ error });
+  // console.log(data);x
 
   return (
     <div>
       {data &&
         data.map((item) => (
           <div key={item.id}>
+            <p>id: {item.id}</p>
             <p>{item.label}</p>
             <p>{item.power}</p>
+            <button onClick={() => mutation.mutate(item.id)}>
+              toggle power
+            </button>
           </div>
         ))}
     </div>
