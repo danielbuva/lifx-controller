@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.8.4",
+    "clsx": "^2.0.0",
+    "framer-motion": "^10.16.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.9.2",
