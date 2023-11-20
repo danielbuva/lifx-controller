@@ -20,7 +20,7 @@ type LightsResponse = Promise<
 >;
 
 function App() {
-  const { error, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["lightData"],
     queryFn: () =>
       fetch("http://localhost:3000/lights", {}).then(
@@ -49,9 +49,6 @@ function App() {
       queryClient.invalidateQueries({ queryKey: ["issues"] });
     },
   });
-
-  console.log({ error });
-  // console.log(data);x
 
   return (
     <div>
