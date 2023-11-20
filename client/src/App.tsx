@@ -1,11 +1,12 @@
 import LightList from "./components/LightList";
 
 import "./App.css";
+import Layout from "./components/wrappers/Lsyout";
 
 export default function App() {
   return (
-    <div>
+    <Layout>
       <LightList />
-    </div>
+    </Layout>
   );
 }
