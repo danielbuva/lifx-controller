@@ -1,7 +1,6 @@
 import "./App.css";
-import { useQuery } from "@tanstack/react-query";
-
-const token = import.meta.env.VITE_TOKEN;
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { queryClient } from "./global";
 
 type LightsResponse = Promise<
   {
@@ -24,9 +23,31 @@ function App() {
   const { isPending, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () =>
-      fetch("https://api.lifx.com/v1/lights/all", {
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((res) => res.json() as LightsResponse),
+      fetch("http://localhost:3000/lights", {}).then(
+        (res) => res.json() as LightsResponse
+      ),
+  });
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch("http://localhost:8000", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseBody = await response.json();
+
+      if (!response.ok) throw responseBody;
+
+      return responseBody;
+    },
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["issues"] });
+    },
   });
 
   console.log({ error, isPending });
