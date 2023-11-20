@@ -1,6 +1,6 @@
 import "./App.css";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { queryClient } from "./global";
+import { queryClient, url } from "./global";
 
 type LightsResponse = Promise<
   {
@@ -23,20 +23,15 @@ function App() {
   const { data } = useQuery({
     queryKey: ["lightData"],
     queryFn: () =>
-      fetch("http://localhost:3000/lights", {}).then(
-        (res) => res.json() as LightsResponse
-      ),
+      fetch(url, {}).then((res) => res.json() as LightsResponse),
   });
 
   const mutation = useMutation({
     mutationFn: async (id: string) => {
-      const response = await fetch(
-        `http://localhost:3000/lights/id:${id}/toggle`,
-        {
-          method: "POST",
-          body: JSON.stringify({ duration: 0.5 }),
-        }
-      );
+      const response = await fetch(`${url}/id:${id}/toggle`, {
+        method: "POST",
+        body: JSON.stringify({ duration: 0.5 }),
+      });
 
       const responseBody = await response.json();
 
@@ -46,7 +41,7 @@ function App() {
     },
     onSuccess: () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["issues"] });
+      queryClient.invalidateQueries({ queryKey: ["lightData"] });
     },
   });
 
