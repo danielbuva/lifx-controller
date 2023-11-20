@@ -21,7 +21,7 @@ type LightsResponse = Promise<
 
 function App() {
   const { error, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["lightData"],
     queryFn: () =>
       fetch("http://localhost:3000/lights", {}).then(
         (res) => res.json() as LightsResponse
