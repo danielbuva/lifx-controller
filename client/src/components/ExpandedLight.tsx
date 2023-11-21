@@ -1,6 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import useActiveLight from "../hooks/useActiveLight";
 import { useCallback, useEffect, useRef } from "react";
+import { Switch } from "./LightGroups/group";
+import { hsbkToHsl } from "../lib/utils";
 
 export default function ExpandedLight() {
   const { activelight } = useActiveLight();
@@ -14,9 +16,12 @@ export default function ExpandedLight() {
           onClick={(e) => e.stopPropagation()}
           ref={ref}
         >
-          <motion.h2 layoutId={activelight.label}>
-            {activelight.label}
-          </motion.h2>
+          <motion.h2>{activelight.label}</motion.h2>
+          <Switch
+            color={hsbkToHsl(activelight.color)}
+            id={activelight.id}
+            power={activelight.power}
+          />
         </motion.div>
       )}
     </AnimatePresence>
