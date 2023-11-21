@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import useActiveLight from "../hooks/useActiveLight";
 import { useCallback, useEffect, useRef } from "react";
-import { Switch } from "./LightGroups/group";
 import { hsbkToHsl } from "../lib/utils";
+import Switch from "./styled/Switch";
 
 export default function ExpandedLight() {
   const { activelight } = useActiveLight();
