@@ -38,6 +38,7 @@ export default function Groups({
               <GroupCardHeader
                 groupId={item.groupId}
                 name={item.groupName}
+                power={item.power}
               />
             }
             lights={item.lights.map((light) => {

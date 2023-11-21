@@ -1,3 +1,8 @@
+export enum Power {
+  ON = "on",
+  OFF = "off",
+}
+
 export type Light = {
   brightness: number;
   color: { hue: number; saturation: number; kelvin: number };
@@ -8,7 +13,7 @@ export type Light = {
   last_seen: string;
   location: { id: string; name: string };
   id: string;
-  power: "on" | "off";
+  power: Power;
   seconds_since_seen: number;
   uuid: string;
 };
@@ -18,5 +23,6 @@ export type LightsResult = Promise<
     groupName: string;
     groupId: string;
     lights: Light[];
+    power: Power;
   }[]
 >;

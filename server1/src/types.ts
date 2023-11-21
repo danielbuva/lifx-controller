@@ -34,4 +34,5 @@ export interface GroupInfo {
   groupName: string;
   groupId: string;
   lights: Light[];
+  power: "on" | "off";
 }

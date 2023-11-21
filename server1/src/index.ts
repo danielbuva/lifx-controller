@@ -24,10 +24,17 @@ const app = new Elysia()
           groupName: groupName,
           groupId: light.group.id,
           lights: [],
+          power: light.power,
         };
+      } else {
+        groupedLights[groupName].lights.push(light);
+        if (
+          light.power === "on" &&
+          groupedLights[groupName].power === "off"
+        ) {
+          groupedLights[groupName].power = "on";
+        }
       }
-
-      groupedLights[groupName].lights.push(light);
     }
 
     return Object.values(groupedLights);
