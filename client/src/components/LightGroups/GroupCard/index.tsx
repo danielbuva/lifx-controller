@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 
-import { cn } from "../../../lib/utils";
-
 type GroupCardProps = {
   header: ReactNode;
   lights: ReactNode[];
@@ -24,7 +22,7 @@ export default function GroupCard({ header, lights }: GroupCardProps) {
   return (
     <motion.div
       animate="visible"
-      className={cn("h-80 w-80 shadow-theme rounded-md, overflow-hidden")}
+      className="h-80 w-80 shadow-theme rounded-md, overflow-hidden"
       initial="hidden"
       variants={container}
     >
