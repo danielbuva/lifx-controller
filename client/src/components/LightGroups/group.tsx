@@ -86,7 +86,6 @@ export function Switch({
   const [isOn, setIsOn] = useState(power === "on");
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const togglePower = useToggle();
-  const { activelight } = useActiveLight();
   const handleToggle = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     if (!isOnCooldown) {
