@@ -52,6 +52,7 @@ export function GroupCardLight({ light }: { light: Light }) {
               animate="center"
               exit="left"
               variants={expansion}
+              className="hover:underline"
             >
               {light.label}
             </motion.p>
