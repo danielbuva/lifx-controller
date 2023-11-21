@@ -1,18 +1,25 @@
 import { Reorder } from "framer-motion";
 import { useLightsData } from "../../hooks/get";
-import { hsbkToHsl } from "../../lib/utils";
-import Group, { GroupHeader, Light } from "./group";
+import GroupCard, { GroupCardHeader, GroupCardLight } from "./group";
 import { useState } from "react";
-import type { LightsResult } from "../../lib/types";
+import type { Light, LightsResult } from "../../lib/types";
 import useSystemTheme from "../../hooks/useSystemTheme";
 import { twMerge } from "tailwind-merge";
+import { LightContext } from "../../hooks/useActiveLight";
+import ExpandedLight from "../ExpandedLight";
 
-export default function LightList() {
+export default function LightGroups() {
+  const [activelight, setActiveLight] = useState<Light | null>(null);
   const { data } = useLightsData();
 
   if (!data) return null;
 
-  return <Groups iniitalItems={data} />;
+  return (
+    <LightContext.Provider value={{ activelight, setActiveLight }}>
+      <Groups iniitalItems={data} />
+      <ExpandedLight />
+    </LightContext.Provider>
+  );
 }
 
 function Groups({
@@ -39,20 +46,15 @@ function Groups({
           key={item.groupId}
           value={item}
         >
-          <Group
+          <GroupCard
             header={
-              <GroupHeader groupId={item.groupId} name={item.groupName} />
+              <GroupCardHeader
+                groupId={item.groupId}
+                name={item.groupName}
+              />
             }
             lights={item.lights.map((light) => {
-              return (
-                <Light
-                  key={light.id}
-                  color={hsbkToHsl(light.color)}
-                  label={light.label}
-                  id={light.id}
-                  power={light.power}
-                />
-              );
+              return <GroupCardLight key={light.id} light={light} />;
             })}
           />
         </Reorder.Item>

@@ -1,8 +1,10 @@
 import { type MouseEvent, ReactNode, useState } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../lib/utils";
+import { cn, hsbkToHsl } from "../../lib/utils";
 import useSystemTheme from "../../hooks/useSystemTheme";
 import { useToggle } from "../../hooks/post";
+import useActiveLight from "../../hooks/useActiveLight";
+import type { Light } from "../../lib/types";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -29,7 +31,7 @@ type GroupProps = {
   lights: ReactNode[];
 };
 
-export default function Group({ header, lights }: GroupProps) {
+export default function GroupCard({ header, lights }: GroupProps) {
   const theme = useSystemTheme();
   return (
     <motion.div
@@ -50,7 +52,7 @@ export default function Group({ header, lights }: GroupProps) {
   );
 }
 
-export function GroupHeader({
+export function GroupCardHeader({
   groupId,
   name,
 }: {
@@ -136,21 +138,34 @@ function Switch({
   );
 }
 
-export function Light({
-  color,
-  label,
-  id,
-  power,
-}: {
-  color: { hue: number; saturation: number };
-  label: string;
-  id: string;
-  power: "on" | "off";
-}) {
+export function GroupCardLight({ light }: { light: Light }) {
+  const [border, setBorder] = useState(false);
+  const theme = useSystemTheme();
+  const { setActiveLight } = useActiveLight();
   return (
-    <div className="p-4 flex w-full justify-between">
-      <motion.p variants={item}>{label}</motion.p>
-      <Switch size="sm" color={color} power={power} id={id} />
-    </div>
+    <motion.div
+      className={cn(
+        "p-4 flex w-80 justify-between border-2 cursor-pointer",
+        {
+          "border-white": theme === "light",
+          "border-black": theme === "dark",
+          "border-gray-400": border,
+        }
+      )}
+      onClick={() => {
+        setActiveLight(light);
+      }}
+      onMouseEnter={() => setBorder(true)}
+      onMouseOut={() => setBorder(false)}
+      layoutId={light.id}
+    >
+      <motion.p variants={item}>{light.label}</motion.p>
+      <Switch
+        size="sm"
+        color={hsbkToHsl(light.color)}
+        power={light.power}
+        id={light.id}
+      />
+    </motion.div>
   );
 }
