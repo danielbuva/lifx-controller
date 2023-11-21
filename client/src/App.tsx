@@ -1,4 +1,4 @@
-import Layout from "./components/wrappers/Lsyout";
+import Layout from "./components/wrappers/Layout";
 import LightList from "./components/LightList";
 
 import "./App.css";
