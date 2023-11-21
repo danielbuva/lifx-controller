@@ -93,7 +93,7 @@ function Switch({
 
       setTimeout(() => {
         setIsOnCooldown(false);
-      }, 1000); // Cooldown for 1 second
+      }, 1000);
     }
   };
   const { hue, saturation } = color;
