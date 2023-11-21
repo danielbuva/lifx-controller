@@ -36,7 +36,7 @@ export default function Groups({
           <GroupCard
             header={
               <GroupCardHeader
-                groupId={item.groupId}
+                groupName={item.groupName}
                 name={item.groupName}
                 power={item.power}
               />

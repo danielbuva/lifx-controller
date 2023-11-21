@@ -7,11 +7,11 @@ import { Power } from "../../../lib/types";
 import { useToggle } from "../../../hooks/post";
 
 export default function GroupCardHeader({
-  groupId,
+  groupName,
   name,
   power,
 }: {
-  groupId: string;
+  groupName: string;
   name: string;
   power: Power;
 }) {
@@ -27,7 +27,7 @@ export default function GroupCardHeader({
       <Switch
         color={{ hue: 0, saturation: 0 }}
         power={power}
-        toggle={() => togglePower(groupId)}
+        toggle={() => togglePower(groupName)}
       />
     </motion.div>
   );
