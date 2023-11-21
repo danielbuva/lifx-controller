@@ -1,6 +1,7 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import https from "https";
+import type { GroupInfo, LightsResponse } from "./types";
 
 const headers = {
   Authorization: `Bearer ${process.env.TOKEN}`,
@@ -12,7 +13,24 @@ const app = new Elysia()
     return "yooo";
   })
   .get("/lights", async () => {
-    return getAllLights();
+    const data = await getAllLights();
+    const groupedLights: { [key: string]: GroupInfo } = {};
+
+    for (const light of data) {
+      const groupName = light.group.name;
+
+      if (!groupedLights[groupName]) {
+        groupedLights[groupName] = {
+          groupName: groupName,
+          groupId: light.group.id,
+          lights: [],
+        };
+      }
+
+      groupedLights[groupName].lights.push(light);
+    }
+
+    return Object.values(groupedLights);
   })
   .post("/lights/:id/toggle", async ({ params }) => {
     const data = await toggleLight(params.id);
@@ -21,7 +39,7 @@ const app = new Elysia()
   })
   .listen(3000);
 
-async function getAllLights() {
+async function getAllLights(): LightsResponse {
   return new Promise((resolve, reject) => {
     const options = {
       hostname: "api.lifx.com",
