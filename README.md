@@ -15,18 +15,18 @@ To run the this project on your local machine, please follow the steps below:
 
 2. **Install Dependencies:**
 
-- Navigate to the backend directory:
+- Navigate to the server directory:
   ```bash
   cd server
   bun install
   ```
-- Navigate to the frontend directory
+- Navigate to the client directory
   ```bash
   cd ../client
   bun install
   ```
 
-3. **Create a .env file in the backend directory** with the following content:
+3. **Create a .env file in the server directory** with the following content:
 
    ```plaintext
    TOKEN=[token generated from lifx]
