@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-import useSystemTheme from "../../../hooks/useSystemTheme";
 import useActiveLight from "../../../hooks/useActiveLight";
 
 import Switch from "../../styled/Switch";
@@ -20,15 +19,12 @@ const expansion = {
 export function GroupCardLight({ light }: { light: Light }) {
   const { activelight, setActiveLight } = useActiveLight();
   const [border, setBorder] = useState(false);
-  const theme = useSystemTheme();
   const toggle = useToggle("id");
 
   return (
     <motion.div
       // hack border needs to be outside here or else exit animation doesn't play idk why :)
-      className={cn("border-2", {
-        "border-white": theme === "light",
-        "border-black": theme === "dark",
+      className={cn("border-2 border-theme", {
         "border-gray-400": border,
       })}
       layout

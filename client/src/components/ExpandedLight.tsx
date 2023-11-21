@@ -13,7 +13,7 @@ export default function ExpandedLight() {
     <AnimatePresence mode="wait">
       {activelight && (
         <motion.div
-          className="absolute w-3/5 h-2/4 bg-black flex border-2"
+          className="absolute w-3/5 h-2/4 flex border-2 bg-theme"
           onClick={(e) => e.stopPropagation()}
           ref={ref}
           initial={{ opacity: 0, scale: 0, y: -100 }}

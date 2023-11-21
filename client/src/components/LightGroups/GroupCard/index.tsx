@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 
 import { cn } from "../../../lib/utils";
 
-import useSystemTheme from "../../../hooks/useSystemTheme";
-
 type GroupCardProps = {
   header: ReactNode;
   lights: ReactNode[];
@@ -23,17 +21,10 @@ const container = {
 };
 
 export default function GroupCard({ header, lights }: GroupCardProps) {
-  const theme = useSystemTheme();
   return (
     <motion.div
       animate="visible"
-      className={cn(
-        "h-80 w-80 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] rounded-md, overflow-hidden",
-        {
-          "shadow-[rgba(255,_255,_255,_0.15)_1px_2px_5px_1px,_rgba(255,_255,_255,_0.05)_1px_2px_5px_1px]":
-            theme === "dark",
-        }
-      )}
+      className={cn("h-80 w-80 shadow-theme rounded-md, overflow-hidden")}
       initial="hidden"
       variants={container}
     >
