@@ -1,6 +1,6 @@
 import { Reorder } from "framer-motion";
 import { useLightsData } from "../../hooks/get";
-import { colorFromHsbk } from "../../lib/utils";
+import { hsbkToHsl } from "../../lib/utils";
 import Group, { GroupHeader, Light } from "./group";
 import { useState } from "react";
 import type { LightsResult } from "../../lib/types";
@@ -47,7 +47,7 @@ function Groups({
               return (
                 <Light
                   key={light.id}
-                  color={colorFromHsbk(light.color)}
+                  color={hsbkToHsl(light.color)}
                   label={light.label}
                   id={light.id}
                   power={light.power}

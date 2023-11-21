@@ -65,7 +65,7 @@ export function GroupHeader({
       >
         {name}
       </motion.h2>
-      <Switch color="black" power="on" id={groupId} />
+      <Switch color={{ hue: 0, saturation: 0 }} power="on" id={groupId} />
     </div>
   );
 }
@@ -76,13 +76,14 @@ function Switch({
   id,
   power,
 }: {
-  color: string;
+  color: { hue: number; saturation: number };
   size?: "sm" | "md";
   id: string;
   power: "on" | "off";
 }) {
   const [isOn, setIsOn] = useState(power === "on");
   const togglePower = useToggle();
+  const { hue, saturation } = color;
   return (
     <motion.div
       className={cn(
@@ -92,7 +93,11 @@ function Switch({
           "h-8 w-16": size === "md",
         }
       )}
-      style={{ backgroundColor: color }}
+      style={{
+        backgroundColor: isOn
+          ? `hsl(${hue}, ${saturation - 30}%, 50%)`
+          : `hsl(${hue}, ${saturation - 30}%, 40%)`,
+      }}
       onClick={(e) => {
         e.stopPropagation();
         setIsOn(!isOn);
@@ -106,7 +111,18 @@ function Switch({
           "h-[26px] w-[26px] rounded-full grid items-center justify-center bg-white overflow-hidden",
           { "h-[30px] w-[30px]": size === "md" }
         )}
-      />
+      >
+        <div
+          className={cn("h-5 w-5 rounded-full", {
+            "h-6 w-6": size === "md",
+          })}
+          style={{
+            backgroundColor: isOn
+              ? `hsl(${hue}, ${saturation}%, 50%)`
+              : `hsl(${hue}, ${saturation}%, 40%)`,
+          }}
+        />
+      </motion.div>
     </motion.div>
   );
 }
@@ -117,7 +133,7 @@ export function Light({
   id,
   power,
 }: {
-  color: string;
+  color: { hue: number; saturation: number };
   label: string;
   id: string;
   power: "on" | "off";

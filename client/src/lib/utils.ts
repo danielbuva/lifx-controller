@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function colorFromHsbk({
+export function hsbkToHsl({
   hue,
   saturation,
   kelvin,
@@ -36,5 +36,5 @@ export function colorFromHsbk({
     saturation = 80;
   }
 
-  return `hsl(${hue}, ${saturation}%, 50%)`;
+  return { hue, saturation };
 }
