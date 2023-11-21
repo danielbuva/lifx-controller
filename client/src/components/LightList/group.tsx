@@ -100,7 +100,7 @@ function Switch({
   return (
     <motion.div
       className={cn(
-        "h-7 w-14 justify-start rounded-full flex items-center box-border px-[1px] cursor-pointer transition-all-[0.3s] select-none",
+        "h-7 w-14 justify-start rounded-full flex items-center box-border p-[2px] cursor-pointer transition-all-[0.3s] select-none",
         {
           "justify-end": isOn,
           "h-8 w-16": size === "md",
@@ -118,8 +118,8 @@ function Switch({
       <motion.div
         layout
         className={cn(
-          "h-[26px] w-[26px] rounded-full grid items-center justify-center bg-white overflow-hidden",
-          { "h-[30px] w-[30px]": size === "md" }
+          "h-[25px] w-[25px] rounded-full grid items-center justify-center bg-white overflow-hidden",
+          { "h-[29px] w-[29px]": size === "md" }
         )}
       >
         <div
