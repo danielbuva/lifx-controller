@@ -2,31 +2,29 @@ import { type MouseEvent, useState } from "react";
 
 import { motion } from "framer-motion";
 
-import { useToggle } from "../../hooks/post";
-
-import { cn } from "../../lib/utils";
 import { itemVariant } from "../LightGroups/GroupCard/utils";
+import { Power } from "../../lib/types";
+import { cn } from "../../lib/utils";
 
 export default function Switch({
   color: { hue, saturation },
   size = "md",
-  id,
   power,
+  toggle,
 }: {
   color: { hue: number; saturation: number };
   size?: "sm" | "md";
-  id: string;
-  power: "on" | "off";
+  power: Power;
+  toggle: () => void;
 }) {
   const [isOn, setIsOn] = useState(power === "on");
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const togglePower = useToggle();
   const handleToggle = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     if (!isOnCooldown) {
       setIsOn(!isOn);
       setIsOnCooldown(true);
-      togglePower(id);
+      toggle();
 
       setTimeout(() => {
         setIsOnCooldown(false);

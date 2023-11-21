@@ -3,10 +3,12 @@ import useActiveLight from "../hooks/useActiveLight";
 import { useCallback, useEffect, useRef } from "react";
 import { hsbkToHsl } from "../lib/utils";
 import Switch from "./styled/Switch";
+import { useToggle } from "../hooks/post";
 
 export default function ExpandedLight() {
   const { activelight } = useActiveLight();
   const ref = useClickOutsideExpandedLight();
+  const toggle = useToggle("id");
   return (
     <AnimatePresence mode="wait">
       {activelight && (
@@ -21,8 +23,8 @@ export default function ExpandedLight() {
           <motion.h2>{activelight.label}</motion.h2>
           <Switch
             color={hsbkToHsl(activelight.color)}
-            id={activelight.id}
             power={activelight.power}
+            toggle={() => toggle(activelight.id)}
           />
         </motion.div>
       )}

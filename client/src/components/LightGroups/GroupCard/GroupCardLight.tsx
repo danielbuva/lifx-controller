@@ -9,6 +9,7 @@ import Switch from "../../styled/Switch";
 import { cn, hsbkToHsl } from "../../../lib/utils";
 import type { Light } from "../../../lib/types";
 import { itemVariant } from "./utils";
+import { useToggle } from "../../../hooks/post";
 
 const expansion = {
   left: { x: -90 },
@@ -17,9 +18,10 @@ const expansion = {
 };
 
 export function GroupCardLight({ light }: { light: Light }) {
+  const { activelight, setActiveLight } = useActiveLight();
   const [border, setBorder] = useState(false);
   const theme = useSystemTheme();
-  const { activelight, setActiveLight } = useActiveLight();
+  const toggle = useToggle("id");
 
   return (
     <motion.div
@@ -69,7 +71,7 @@ export function GroupCardLight({ light }: { light: Light }) {
                 size="sm"
                 color={hsbkToHsl(light.color)}
                 power={light.power}
-                id={light.id}
+                toggle={() => toggle(light.id)}
               />
             </motion.div>
           </motion.div>
