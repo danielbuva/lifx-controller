@@ -71,7 +71,7 @@ export function GroupHeader({
 }
 
 function Switch({
-  color,
+  color: { hue, saturation },
   size = "md",
   id,
   power,
@@ -96,7 +96,6 @@ function Switch({
       }, 1000);
     }
   };
-  const { hue, saturation } = color;
   return (
     <motion.div
       className={cn(
