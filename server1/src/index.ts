@@ -23,7 +23,7 @@ const app = new Elysia()
         groupedLights[groupName] = {
           groupName: groupName,
           groupId: light.group.id,
-          lights: [],
+          lights: [light],
           power: light.power,
         };
       } else {
