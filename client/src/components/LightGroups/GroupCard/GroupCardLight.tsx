@@ -30,6 +30,7 @@ export function GroupCardLight({ light }: { light: Light }) {
       layout
       // hack because idk how to animate layout when removing element : )
       style={{ height: activelight?.id === light.id ? 0 : "64px" }}
+      variants={itemVariant}
     >
       <AnimatePresence mode="wait">
         {activelight?.id !== light.id && (
@@ -44,7 +45,6 @@ export function GroupCardLight({ light }: { light: Light }) {
             }}
             onMouseEnter={() => setBorder(true)}
             onMouseLeave={() => setBorder(false)}
-            variants={itemVariant}
           >
             <motion.p
               initial="left"
