@@ -44,7 +44,7 @@ export function GroupCardLight({ light }: { light: Light }) {
               setBorder(false);
             }}
             onMouseEnter={() => setBorder(true)}
-            onMouseOut={() => setBorder(false)}
+            onMouseLeave={() => setBorder(false)}
             variants={itemVariant}
           >
             <motion.p
@@ -60,6 +60,8 @@ export function GroupCardLight({ light }: { light: Light }) {
               animate="center"
               exit="right"
               variants={expansion}
+              onMouseOver={() => setBorder(false)}
+              onMouseOut={() => setBorder(true)}
             >
               <Switch
                 size="sm"
