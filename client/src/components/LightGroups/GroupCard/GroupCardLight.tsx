@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import useActiveLight from "../../../hooks/useActiveLight";
@@ -18,15 +17,15 @@ const expansion = {
 
 export function GroupCardLight({ light }: { light: Light }) {
   const { activelight, setActiveLight } = useActiveLight();
-  const [border, setBorder] = useState(false);
   const toggle = useToggle("id");
 
   return (
     <motion.div
       // hack border needs to be outside here or else exit animation doesn't play idk why :)
-      className={cn("border-2 border-theme", {
-        "border-gray-400": border,
-      })}
+      // border looks bad during animation maybe i will remove
+      // className={cn("border-2 border-theme", {
+      //   "border-gray-400": border,
+      // })}
       layout
       // hack because idk how to animate layout when removing element : )
       style={{ height: activelight?.id === light.id ? 0 : "64px" }}
@@ -41,10 +40,7 @@ export function GroupCardLight({ light }: { light: Light }) {
             layout
             onClick={() => {
               setActiveLight(light);
-              setBorder(false);
             }}
-            onMouseEnter={() => setBorder(true)}
-            onMouseLeave={() => setBorder(false)}
           >
             <motion.p
               initial="left"
@@ -60,8 +56,6 @@ export function GroupCardLight({ light }: { light: Light }) {
               animate="center"
               exit="right"
               variants={expansion}
-              onMouseOver={() => setBorder(false)}
-              onMouseOut={() => setBorder(true)}
             >
               <Switch
                 size="sm"
