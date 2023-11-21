@@ -164,7 +164,9 @@ export function GroupCardLight({ light }: { light: Light }) {
       onMouseOut={() => setBorder(false)}
       layoutId={light.id}
     >
-      <motion.p variants={item}>{light.label}</motion.p>
+      <motion.p layoutId={light.label} variants={item}>
+        {light.label}
+      </motion.p>
       <Switch
         size="sm"
         color={hsbkToHsl(light.color)}

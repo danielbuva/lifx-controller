@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import useActiveLight from "../hooks/useActiveLight";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export default function ExpandedLight() {
   const { activelight } = useActiveLight();
@@ -14,7 +14,9 @@ export default function ExpandedLight() {
           onClick={(e) => e.stopPropagation()}
           ref={ref}
         >
-          <motion.h2>{activelight.label}</motion.h2>
+          <motion.h2 layoutId={activelight.label}>
+            {activelight.label}
+          </motion.h2>
         </motion.div>
       )}
     </AnimatePresence>
@@ -24,21 +26,23 @@ export default function ExpandedLight() {
 function useClickOutsideExpandedLight() {
   const { setActiveLight } = useActiveLight();
   const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    function handleClickOutside(e: globalThis.MouseEvent) {
+
+  const handleClickOutside = useCallback(
+    (e: globalThis.MouseEvent) => {
       const target = e.target as Node;
       if (ref.current && target && !ref.current.contains(target)) {
         setActiveLight(null);
       }
-    }
+    },
+    [setActiveLight]
+  );
 
-    // Bind the event listener
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setActiveLight]);
+  }, [setActiveLight, handleClickOutside]);
 
   return ref;
 }
