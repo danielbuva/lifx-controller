@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
+import useSystemTheme from "../../hooks/useSystemTheme";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -28,10 +29,17 @@ type GroupProps = {
 };
 
 export default function Group({ header, lights }: GroupProps) {
+  const theme = useSystemTheme();
   return (
     <motion.div
       animate="visible"
-      className="h-80 w-80 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] rounded-md"
+      className={cn(
+        "h-80 w-80 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] rounded-md",
+        {
+          "shadow-[rgba(255,_255,_255,_0.15)_1px_2px_5px_1px,_rgba(255,_255,_255,_0.05)_1px_2px_5px_1px]":
+            theme === "dark",
+        }
+      )}
       initial="hidden"
       variants={container}
     >
