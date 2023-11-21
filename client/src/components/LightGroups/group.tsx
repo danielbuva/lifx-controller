@@ -1,5 +1,5 @@
 import { type MouseEvent, ReactNode, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn, hsbkToHsl } from "../../lib/utils";
 import useSystemTheme from "../../hooks/useSystemTheme";
 import { useToggle } from "../../hooks/post";
@@ -12,8 +12,8 @@ const container = {
     opacity: 1,
     scale: 1,
     transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2,
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 };
@@ -37,7 +37,7 @@ export default function GroupCard({ header, lights }: GroupProps) {
     <motion.div
       animate="visible"
       className={cn(
-        "h-80 w-80 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] rounded-md",
+        "h-80 w-80 shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] rounded-md, overflow-hidden",
         {
           "shadow-[rgba(255,_255,_255,_0.15)_1px_2px_5px_1px,_rgba(255,_255,_255,_0.05)_1px_2px_5px_1px]":
             theme === "dark",
@@ -60,7 +60,7 @@ export function GroupCardHeader({
   name: string;
 }) {
   return (
-    <div className="flex flex-row justify-between bg-slate-600 p-4 rounded-tl-md rounded-tr-md">
+    <motion.div className="flex flex-row justify-between bg-slate-600 p-4 rounded-tl-md rounded-tr-md">
       <motion.h2
         className="text-xl font-semibold text-white"
         variants={item}
@@ -68,7 +68,7 @@ export function GroupCardHeader({
         {name}
       </motion.h2>
       <Switch color={{ hue: 0, saturation: 0 }} power="on" id={groupId} />
-    </div>
+    </motion.div>
   );
 }
 
@@ -86,6 +86,7 @@ export function Switch({
   const [isOn, setIsOn] = useState(power === "on");
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const togglePower = useToggle();
+  const { activelight } = useActiveLight();
   const handleToggle = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     if (!isOnCooldown) {
@@ -128,7 +129,7 @@ export function Switch({
           damping: 35,
         }}
       >
-        <div
+        <motion.div
           className={cn("h-5 w-5 rounded-full", {
             "h-6 w-6": size === "md",
           })}
@@ -143,34 +144,67 @@ export function Switch({
   );
 }
 
+const expansion = {
+  left: { x: -100 },
+  center: { x: 0, y: 0, transition: { delay: 0.2 } },
+  right: { x: 100 },
+};
+
 export function GroupCardLight({ light }: { light: Light }) {
   const [border, setBorder] = useState(false);
   const theme = useSystemTheme();
-  const { setActiveLight } = useActiveLight();
+  const { activelight, setActiveLight } = useActiveLight();
+
   return (
-    <motion.div
-      className={cn(
-        "p-4 flex w-80 justify-between border-2 cursor-pointer",
-        {
-          "border-white": theme === "light",
-          "border-black": theme === "dark",
-          "border-gray-400": border,
-        }
-      )}
-      onClick={() => {
-        setActiveLight(light);
-      }}
-      onMouseEnter={() => setBorder(true)}
-      onMouseOut={() => setBorder(false)}
-      layoutId={light.id}
-    >
-      <motion.p variants={item}>{light.label}</motion.p>
-      <Switch
-        size="sm"
-        color={hsbkToHsl(light.color)}
-        power={light.power}
-        id={light.id}
-      />
-    </motion.div>
+    <AnimatePresence mode="wait">
+      <motion.div
+        // hack because idk how to animate layout when removing element
+        layout
+        style={{ height: activelight?.id === light.id ? 0 : "64px" }}
+      >
+        {activelight?.id !== light.id && (
+          <motion.div
+            className={cn(
+              "p-4 flex w-80 justify-between border-2 cursor-pointer h-16",
+              {
+                "border-white": theme === "light",
+                "border-black": theme === "dark",
+                "border-gray-400": border,
+              }
+            )}
+            layout
+            onClick={() => {
+              setActiveLight(light);
+              setBorder(false);
+            }}
+            onMouseEnter={() => setBorder(true)}
+            onMouseOut={() => setBorder(false)}
+            variants={item}
+          >
+            <motion.p
+              initial="left"
+              animate="center"
+              exit="left"
+              variants={expansion}
+            >
+              {light.label}
+            </motion.p>
+            <motion.div
+              initial="right"
+              animate="center"
+              exit="right"
+              variants={expansion}
+            >
+              <Switch
+                size="sm"
+                color={hsbkToHsl(light.color)}
+                power={light.power}
+                id={light.id}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </motion.div>
+    </AnimatePresence>
   );
 }
