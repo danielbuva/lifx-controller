@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
-import useActiveLight from "../../hooks/useActiveLight";
-import { useToggle } from "../../hooks/post";
+import useActiveLight from "@/hooks/useActiveLight";
+import { useToggle } from "@/hooks/post";
+import { hsbkToHsl } from "@/lib/utils";
 import Switch from "../styled/Switch";
-import { hsbkToHsl } from "../../lib/utils";
 
 const expanded = {
   left: { x: -90 },
