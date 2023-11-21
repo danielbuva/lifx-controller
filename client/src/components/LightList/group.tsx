@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { type MouseEvent, ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 import useSystemTheme from "../../hooks/useSystemTheme";
@@ -82,7 +82,20 @@ function Switch({
   power: "on" | "off";
 }) {
   const [isOn, setIsOn] = useState(power === "on");
+  const [isOnCooldown, setIsOnCooldown] = useState(false);
   const togglePower = useToggle();
+  const handleToggle = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    if (!isOnCooldown) {
+      setIsOn(!isOn);
+      setIsOnCooldown(true);
+      togglePower(id);
+
+      setTimeout(() => {
+        setIsOnCooldown(false);
+      }, 1000); // Cooldown for 1 second
+    }
+  };
   const { hue, saturation } = color;
   return (
     <motion.div
@@ -91,6 +104,7 @@ function Switch({
         {
           "justify-end": isOn,
           "h-8 w-16": size === "md",
+          "cursor-wait": isOnCooldown,
         }
       )}
       style={{
@@ -98,11 +112,7 @@ function Switch({
           ? `hsl(${hue}, ${saturation - 30}%, 50%)`
           : `hsl(${hue}, ${saturation - 30}%, 40%)`,
       }}
-      onClick={(e) => {
-        e.stopPropagation();
-        setIsOn(!isOn);
-        togglePower(id);
-      }}
+      onClick={handleToggle}
       variants={item}
     >
       <motion.div
