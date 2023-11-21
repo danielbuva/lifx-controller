@@ -100,7 +100,7 @@ function Switch({
   return (
     <motion.div
       className={cn(
-        "h-7 w-14 justify-start rounded-full flex items-center box-border py-1 cursor-pointer transition-all-[0.3s] select-none",
+        "h-7 w-14 justify-start rounded-full flex items-center box-border px-[1px] cursor-pointer transition-all-[0.3s] select-none",
         {
           "justify-end": isOn,
           "h-8 w-16": size === "md",
