@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import useActiveLight from "../hooks/useActiveLight";
 import { useCallback, useEffect, useRef } from "react";
-import { hsbkToHsl } from "../lib/utils";
-import Switch from "./styled/Switch";
-import { useToggle } from "../hooks/post";
+import useActiveLight from "../../hooks/useActiveLight";
+import { useToggle } from "../../hooks/post";
+import Switch from "../styled/Switch";
+import { hsbkToHsl } from "../../lib/utils";
 
 export default function ExpandedLight() {
   const { activelight } = useActiveLight();
@@ -13,7 +13,7 @@ export default function ExpandedLight() {
     <AnimatePresence mode="wait">
       {activelight && (
         <motion.div
-          className="absolute w-3/5 h-2/4 flex border-2 bg-theme"
+          className="absolute w-3/5 h-2/4 flex border-2 bg-theme p-4"
           onClick={(e) => e.stopPropagation()}
           ref={ref}
           initial={{ opacity: 0, scale: 0, y: -100 }}
