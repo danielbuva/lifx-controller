@@ -40,13 +40,17 @@ function Groups({
           value={item}
         >
           <Group
-            header={<GroupHeader name={item.groupName} />}
+            header={
+              <GroupHeader groupId={item.groupId} name={item.groupName} />
+            }
             lights={item.lights.map((light) => {
               return (
                 <Light
                   key={light.id}
                   color={colorFromHsbk(light.color)}
                   label={light.label}
+                  id={light.id}
+                  power={light.power}
                 />
               );
             })}

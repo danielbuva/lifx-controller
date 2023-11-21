@@ -2,6 +2,7 @@ import { ReactNode, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 import useSystemTheme from "../../hooks/useSystemTheme";
+import { useToggle } from "../../hooks/post";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -49,7 +50,13 @@ export default function Group({ header, lights }: GroupProps) {
   );
 }
 
-export function GroupHeader({ name }: { name: string }) {
+export function GroupHeader({
+  groupId,
+  name,
+}: {
+  groupId: string;
+  name: string;
+}) {
   return (
     <div className="flex flex-row justify-between bg-slate-600 p-4 rounded-tl-md rounded-tr-md">
       <motion.h2
@@ -58,7 +65,7 @@ export function GroupHeader({ name }: { name: string }) {
       >
         {name}
       </motion.h2>
-      <Switch color="black" />
+      <Switch color="black" power="on" id={groupId} />
     </div>
   );
 }
@@ -66,11 +73,16 @@ export function GroupHeader({ name }: { name: string }) {
 function Switch({
   color,
   size = "md",
+  id,
+  power,
 }: {
   color: string;
   size?: "sm" | "md";
+  id: string;
+  power: "on" | "off";
 }) {
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState(power === "on");
+  const togglePower = useToggle();
   return (
     <motion.div
       className={cn(
@@ -84,6 +96,7 @@ function Switch({
       onClick={(e) => {
         e.stopPropagation();
         setIsOn(!isOn);
+        togglePower(id);
       }}
       variants={item}
     >
@@ -98,12 +111,21 @@ function Switch({
   );
 }
 
-export function Light({ color, label }: { color: string; label: string }) {
-  // console.log({ color });
+export function Light({
+  color,
+  label,
+  id,
+  power,
+}: {
+  color: string;
+  label: string;
+  id: string;
+  power: "on" | "off";
+}) {
   return (
     <div className="p-4 flex w-full justify-between">
       <motion.p variants={item}>{label}</motion.p>
-      <Switch size="sm" color={color} />
+      <Switch size="sm" color={color} power={power} id={id} />
     </div>
   );
 }
