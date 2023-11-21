@@ -117,11 +117,16 @@ function Switch({
       variants={item}
     >
       <motion.div
-        layout
         className={cn(
           "h-[25px] w-[25px] rounded-full grid items-center justify-center bg-white overflow-hidden",
           { "h-[29px] w-[29px]": size === "md" }
         )}
+        layout
+        transition={{
+          type: "spring",
+          stiffness: 700,
+          damping: 35,
+        }}
       >
         <div
           className={cn("h-5 w-5 rounded-full", {
