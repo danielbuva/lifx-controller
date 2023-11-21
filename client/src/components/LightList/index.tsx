@@ -1,23 +1,29 @@
-import Group from "./group";
+import { useLightsData } from "../../hooks/get";
+import { colorFromHsbk } from "../../lib/utils";
+import Group, { GroupHeader, Light } from "./group";
 
 export default function LightList() {
-  // const { data } = useLightsData();
-  // const toggleLight = useToggle();
+  const { data } = useLightsData();
 
-  // if (!data) return null;
+  if (!data) return null;
 
   return (
-    <div>
-      {/* {data.map((item) => (
-        <div key={item.id}>
-          <p>{item.label}</p>
-          <p>{item.power}</p>
-          <button onClick={() => toggleLight(item.id)}>
-            toggle power
-          </button>
-        </div>
-      ))} */}
-      <Group />
+    <div className="flex gap-4">
+      {data.map((item) => (
+        <Group
+          key={item.groupId}
+          header={<GroupHeader name={item.groupName} />}
+          lights={item.lights.map((light) => {
+            return (
+              <Light
+                key={light.id}
+                color={colorFromHsbk(light.color)}
+                label={light.label}
+              />
+            );
+          })}
+        />
+      ))}
     </div>
   );
 }
