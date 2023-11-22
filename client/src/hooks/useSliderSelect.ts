@@ -18,11 +18,13 @@ export default function useSliderSelect(
 
   const handleMouseDown = () => {
     window.addEventListener("mousemove", onDrag);
+    window.addEventListener("mouseup", handleMouseUp);
   };
 
   const handleMouseUp = () => {
     window.removeEventListener("mousemove", onDrag);
+    window.removeEventListener("mouseup", handleMouseUp);
   };
 
-  return { handleMouseDown, handleMouseUp, ref };
+  return { handleMouseDown, ref };
 }
