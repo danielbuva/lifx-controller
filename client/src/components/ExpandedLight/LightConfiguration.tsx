@@ -4,18 +4,15 @@ import { type ReactNode, useState } from "react";
 
 export default function LightConfiguration({
   children,
+  initialState,
 }: {
   children: ReactNode;
+  initialState: LightConfigState;
 }) {
-  const [lightConfig, setLightConfig] = useState<LightConfigState>({
-    hue: 0,
-    brightness: 0,
-    lightness: 0.5,
-    kelvin: 1500,
-    saturation: 1,
-  });
+  const [lightConfig, setLightConfig] =
+    useState<LightConfigState>(initialState);
 
-  // console.log(lightConfig);
+  console.log(lightConfig);
 
   return (
     <SliderContext.Provider value={{ lightConfig, setLightConfig }}>

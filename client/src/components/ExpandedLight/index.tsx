@@ -16,12 +16,12 @@ const expanded = {
 };
 
 export default function ExpandedLight() {
-  const { activelight } = useActiveLight();
+  const { activeLight } = useActiveLight();
   const ref = useClickOutsideExpandedLight();
   const toggle = useToggle("id");
   return (
     <AnimatePresence mode="wait">
-      {activelight && (
+      {activeLight && (
         <motion.div
           className="absolute w-3/5 h-2/4 flex flex-col border-2 bg-gray-600 p-6 overflow-hidden gap-4"
           onClick={(e) => e.stopPropagation()}
@@ -38,7 +38,7 @@ export default function ExpandedLight() {
               exit="left"
               variants={expanded}
             >
-              {activelight.label}
+              {activeLight.label}
             </motion.h2>
             <motion.div
               animate="origin"
@@ -47,13 +47,21 @@ export default function ExpandedLight() {
               variants={expanded}
             >
               <Switch
-                color={hsbkToHsl(activelight.color)}
-                power={activelight.power}
-                toggle={() => toggle(activelight.id)}
+                color={hsbkToHsl(activeLight.color)}
+                power={activeLight.power}
+                toggle={() => toggle(activeLight.id)}
               />
             </motion.div>
           </div>
-          <LightConfiguration>
+          <LightConfiguration
+            initialState={{
+              hue: activeLight.color.hue,
+              brightness: activeLight.brightness * 100,
+              lightness: 50,
+              kelvin: activeLight.color.kelvin,
+              saturation: activeLight.color.saturation,
+            }}
+          >
             <HueSlider />
             <BrightnessSlider />
           </LightConfiguration>

@@ -24,7 +24,7 @@ export default function BrightnessSlider() {
           dragConstraints={{ left: -85, right: 88 }}
           dragMomentum={false}
           dragControls={dragControls}
-          // animate={{ x: (brightness * 176) / 100 - 88 }}
+          animate={{ x: normalizeBrightness(lightConfig.brightness) }}
         >
           <div
             className="h-7 w-44 absolute left-[-88px]"
@@ -34,4 +34,8 @@ export default function BrightnessSlider() {
       </div>
     </>
   );
+}
+
+function normalizeBrightness(brightness: number) {
+  return (brightness * 176) / 100 - 88;
 }
