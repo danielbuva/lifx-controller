@@ -18,8 +18,9 @@ const app = new Elysia()
 
     for (const light of data) {
       const groupName = light.group.name;
+      const groupOfLights = groupedLights[groupName];
 
-      if (!groupedLights[groupName]) {
+      if (!groupOfLights) {
         groupedLights[groupName] = {
           groupName: groupName,
           groupId: light.group.id,
@@ -27,12 +28,9 @@ const app = new Elysia()
           power: light.power,
         };
       } else {
-        groupedLights[groupName].lights.push(light);
-        if (
-          light.power === "on" &&
-          groupedLights[groupName].power === "off"
-        ) {
-          groupedLights[groupName].power = "on";
+        groupOfLights.lights.push(light);
+        if (light.power === "on" && groupOfLights.power === "off") {
+          groupOfLights.power = "on";
         }
       }
     }
