@@ -1,9 +1,13 @@
+import BrightnessSlider from "@/components/styled/Slider/BrightnessSlider";
+import HueSlider from "@/components/styled/Slider/HueSlider";
 import Switch from "@/components/styled/Switch";
 import { useToggle } from "@/hooks/post";
 import useActiveLight from "@/hooks/useActiveLight";
 import { hsbkToHsl } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
+
+import LightConfiguration from "./LightConfiguration";
 
 const expanded = {
   left: { x: -90 },
@@ -19,7 +23,7 @@ export default function ExpandedLight() {
     <AnimatePresence mode="wait">
       {activelight && (
         <motion.div
-          className="absolute w-3/5 h-2/4 flex border-2 bg-theme p-6 overflow-hidden"
+          className="absolute w-3/5 h-2/4 flex flex-col border-2 bg-gray-600 p-6 overflow-hidden gap-4"
           onClick={(e) => e.stopPropagation()}
           ref={ref}
           initial={{ opacity: 0, scale: 0, y: -100 }}
@@ -49,6 +53,10 @@ export default function ExpandedLight() {
               />
             </motion.div>
           </div>
+          <LightConfiguration>
+            <HueSlider />
+            <BrightnessSlider />
+          </LightConfiguration>
         </motion.div>
       )}
     </AnimatePresence>
