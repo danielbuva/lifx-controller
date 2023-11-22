@@ -1,10 +1,8 @@
-import { type MouseEvent, useState } from "react";
-
+import { itemVariant } from "@/components/LightGroups/GroupCard/utils";
+import { Power } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-
-import { itemVariant } from "../LightGroups/GroupCard/utils";
-import { Power } from "../../lib/types";
-import { cn } from "../../lib/utils";
+import { type MouseEvent, useState } from "react";
 
 export default function Switch({
   color: { hue, saturation },

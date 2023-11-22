@@ -1,13 +1,11 @@
+import Switch from "@/components/styled/Switch";
+import { useToggle } from "@/hooks/post";
+import useActiveLight from "@/hooks/useActiveLight";
+import type { Light } from "@/lib/types";
+import { cn, hsbkToHsl } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 
-import useActiveLight from "@/hooks/useActiveLight";
-
-import Switch from "@/components/styled/Switch";
-
-import { cn, hsbkToHsl } from "@/lib/utils";
-import type { Light } from "@/lib/types";
 import { itemVariant } from "./utils";
-import { useToggle } from "@/hooks/post";
 
 const expansion = {
   left: { x: -90 },

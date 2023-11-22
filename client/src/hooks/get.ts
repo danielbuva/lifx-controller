@@ -1,6 +1,6 @@
+import type { LightsResult } from "@/lib/types";
+import { url } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { url } from "../lib/utils";
-import type { LightsResult } from "../lib/types";
 
 export function useLightsData() {
   return useQuery({

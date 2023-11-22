@@ -1,5 +1,5 @@
+import { queryClient, url } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
-import { queryClient, url } from "../lib/utils";
 
 export function useToggle(prefix: "group" | "id") {
   return useMutation({

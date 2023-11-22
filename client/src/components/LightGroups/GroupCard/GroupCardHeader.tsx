@@ -1,10 +1,9 @@
+import Switch from "@/components/styled/Switch";
+import { useToggle } from "@/hooks/post";
+import { Power } from "@/lib/types";
 import { motion } from "framer-motion";
 
 import { itemVariant } from "./utils";
-
-import Switch from "@/components/styled/Switch";
-import { Power } from "@/lib/types";
-import { useToggle } from "@/hooks/post";
 
 export default function GroupCardHeader({
   groupName,

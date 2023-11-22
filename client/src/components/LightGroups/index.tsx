@@ -1,11 +1,9 @@
+import ExpandedLight from "@/components/ExpandedLight";
+import { useLightsData } from "@/hooks/get";
+import { LightContext } from "@/hooks/useActiveLight";
+import type { Light } from "@/lib/types";
 import { useState } from "react";
 
-import type { Light } from "../../lib/types";
-
-import { LightContext } from "../../hooks/useActiveLight";
-import { useLightsData } from "../../hooks/get";
-
-import ExpandedLight from "../ExpandedLight";
 import Groups from "./Groups";
 
 export default function LightGroups() {

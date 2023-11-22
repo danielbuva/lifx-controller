@@ -1,10 +1,9 @@
+import type { LightsResult } from "@/lib/types";
 import { Reorder } from "framer-motion";
 import { useState } from "react";
 
 import GroupCard from "./GroupCard";
 import GroupCardHeader from "./GroupCard/GroupCardHeader";
-
-import type { LightsResult } from "../../lib/types";
 import { GroupCardLight } from "./GroupCard/GroupCardLight";
 
 const container = {
