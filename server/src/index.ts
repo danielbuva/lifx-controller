@@ -41,7 +41,7 @@ const app = new Elysia()
   })
   .post("/lights/:id/toggle", async ({ params }) => {
     const data = await toggleLight(params.id);
-    console.log({ data });
+    // console.log({ data });
     return data;
   })
   .listen(3000);
