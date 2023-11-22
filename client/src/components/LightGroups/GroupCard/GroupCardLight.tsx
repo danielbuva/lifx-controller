@@ -14,7 +14,7 @@ const expansion = {
 };
 
 export function GroupCardLight({ light }: { light: Light }) {
-  const { activelight, setActiveLight } = useActiveLight();
+  const { activeLight, setActiveLight } = useActiveLight();
   const toggle = useToggle("id");
 
   return (
@@ -26,11 +26,11 @@ export function GroupCardLight({ light }: { light: Light }) {
       // })}
       layout
       // hack because idk how to animate layout when removing element : )
-      style={{ height: activelight?.id === light.id ? 0 : "64px" }}
+      style={{ height: activeLight?.id === light.id ? 0 : "64px" }}
       variants={itemVariant}
     >
       <AnimatePresence mode="wait">
-        {activelight?.id !== light.id && (
+        {activeLight?.id !== light.id && (
           <motion.div
             className={cn(
               "p-4 flex w-80 justify-between cursor-pointer h-16"

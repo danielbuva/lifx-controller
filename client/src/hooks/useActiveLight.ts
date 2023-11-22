@@ -7,7 +7,7 @@ import {
 } from "react";
 
 export const LightContext = createContext<{
-  activelight: Light | null;
+  activeLight: Light | null;
   setActiveLight: Dispatch<SetStateAction<Light | null>>;
 } | null>(null);
 
