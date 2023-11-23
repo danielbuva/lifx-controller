@@ -1,29 +1,11 @@
 import useSlideData from "@/hooks/useSliderData";
-import {
-  animate,
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-} from "framer-motion";
 import { type PointerEvent, useRef } from "react";
 
-import { clamp, hueSaturationToHex } from "./utils";
+import { clamp, hueSaturationToHex, hueToHex } from "./utils";
 
-// it animates to cursor click
-// if you start dragging before animation is over
-// it does a jarring snap to cursor
-// todo: find a way to animate between transitions of dragging and clicking
-
-// w-44 = 176px
-
-export default function BrightnessSlider() {
+export default function SaturationSlider() {
   const { lightConfig, setLightConfig } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
-  const sliderX = useMotionValue(lightConfig.brightness);
-  const background = useMotionTemplate`linear-gradient(90deg, ${hueSaturationToHex(
-    lightConfig.hue,
-    lightConfig.saturation * 100
-  )} ${sliderX}px, #d1d5db 0)`;
 
   const getPosition = (pageX: number) => {
     const interactableArea = interactableAreaRef.current;
@@ -39,9 +21,9 @@ export default function BrightnessSlider() {
     setLightConfig({
       ...lightConfig,
       // normalize pointer position to 0 - 1
-      brightness: clamp(pointerPosition / 176),
+      saturation: clamp(pointerPosition / 176),
     });
-    sliderX.set(pointerPosition);
+    // sliderX.set(pointerPosition);
   };
 
   const handleMouseUp = () => {
@@ -53,9 +35,9 @@ export default function BrightnessSlider() {
     const pointerPosition = getPosition(e.pageX);
     setLightConfig({
       ...lightConfig,
-      brightness: clamp(pointerPosition / 176),
+      saturation: clamp(pointerPosition / 176),
     });
-    animate(sliderX, getPosition(e.pageX));
+    // animate(sliderX, getPosition(e.pageX));
 
     // need global mouseup to remove listener even when
     // user mouses up when out of element
@@ -64,8 +46,15 @@ export default function BrightnessSlider() {
   };
 
   return (
-    <div className="relative w-44 h-9 select-none rounded-md overflow-hidden cursor-pointer">
-      <motion.div className="absolute w-44 h-9" style={{ background }} />
+    <div
+      className="relative w-44 h-9 select-none rounded-md overflow-hidden cursor-pointer"
+      style={{
+        background: `linear-gradient(to right, ${hueSaturationToHex(
+          lightConfig.hue,
+          0
+        )}, ${hueToHex(lightConfig.hue)})`,
+      }}
+    >
       <div
         ref={interactableAreaRef}
         className="absolute w-44 h-9"

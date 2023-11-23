@@ -9,14 +9,15 @@ export function onSliderSelect(
   if (left < 0) {
     return 0;
   } else if (left > container.clientWidth) {
-    return normalizeTo - 1;
+    return normalizeTo;
   }
   return (normalizeTo * (left * 100)) / container.clientWidth / 100;
 }
 
-function f(hue: number) {
+function f(hue: number, saturation: number = 100) {
   const k = hue % 12;
-  const color = 0.5 - 0.5 * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+  const color =
+    0.5 - saturation * 0.005 * Math.max(Math.min(k - 3, 9 - k, 1), -1);
   return Math.round(255 * color)
     .toString(16)
     .padStart(2, "0"); // convert to Hex and prefix "0" if needed
@@ -25,4 +26,15 @@ function f(hue: number) {
 export function hueToHex(hue: number) {
   hue /= 30;
   return `#${f(hue)}${f(8 + hue)}${f(4 + hue)}`;
+}
+
+export function clamp(number: number) {
+  return Math.max(0, Math.min(number, 1));
+}
+
+export function hueSaturationToHex(hue: number, saturation: number) {
+  return `#${f(hue, saturation)}${f(8 + hue, saturation)}${f(
+    4 + hue,
+    saturation
+  )}`;
 }

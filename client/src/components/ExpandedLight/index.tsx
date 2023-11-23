@@ -1,5 +1,6 @@
 import BrightnessSlider from "@/components/styled/Slider/BrightnessSlider";
 import HueSlider from "@/components/styled/Slider/HueSlider";
+import SaturationSlider from "@/components/styled/Slider/SaturationSlider";
 import Switch from "@/components/styled/Switch";
 import { useToggle } from "@/hooks/post";
 import useActiveLight from "@/hooks/useActiveLight";
@@ -64,6 +65,7 @@ export default function ExpandedLight() {
             }}
           >
             <HueSlider />
+            <SaturationSlider />
             <BrightnessSlider />
             <ConfirmButton />
           </LightConfiguration>
