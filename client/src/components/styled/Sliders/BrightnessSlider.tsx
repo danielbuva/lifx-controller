@@ -23,7 +23,6 @@ export default function BrightnessSlider() {
   const sliderX = useMotionValue(
     normalize(0, 1, 0, 176, lightConfig.brightness)
   );
-  console.log(sliderX.get());
   let hsl: string;
 
   if (isColor) {

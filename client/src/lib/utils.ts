@@ -154,8 +154,6 @@ export function kelvinToHsl(kelvin: number) {
     normalize(1500, 9000, 0, 1, kelvin)
   );
 
-  // console.log("normal", normalize(0, 1, kelvin), "kelvin: ", kelvin);
-
   return rgbToHsl(
     interpolatedColor.r,
     interpolatedColor.g,
