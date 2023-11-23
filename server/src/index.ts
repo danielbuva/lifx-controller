@@ -42,6 +42,11 @@ const app = new Elysia()
     // console.log({ data });
     return data;
   })
+  .put("/lights/:id/state", async ({ body, params: { id } }) => {
+    const data = await setLightState(id, body as { color: string });
+    console.log(data);
+    return data;
+  })
   .listen(3000);
 
 async function getAllLights(): LightsResponse {
@@ -105,6 +110,42 @@ async function toggleLight(id: string) {
     req.on("error", (error) => {
       reject(error);
     });
+
+    req.end();
+  });
+}
+
+async function setLightState(id: string, body: { color: string }) {
+  // console.log(id, body);
+  return new Promise((resolve, reject) => {
+    const options = {
+      hostname: "api.lifx.com",
+      path: `/v1/lights/${id}/state`,
+      method: "PUT",
+      headers: { ...headers, "Content-Type": "application/json" },
+    };
+
+    const req = https.request(options, (res) => {
+      let data = "";
+
+      res.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      res.on("end", () => {
+        try {
+          resolve(JSON.parse(data));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+
+    req.on("error", (error) => {
+      reject(error);
+    });
+
+    req.write(JSON.stringify(body));
 
     req.end();
   });
