@@ -13,9 +13,14 @@ export default function LightGroups() {
   if (!data) return null;
 
   return (
-    <LightContext.Provider value={{ activeLight, setActiveLight }}>
-      <Groups iniitalItems={data} />
-      <ExpandedLight />
-    </LightContext.Provider>
+    <div
+      className="min-h-screen w-screen flex-row flex justify-center items-center"
+      onClick={() => setActiveLight(null)}
+    >
+      <LightContext.Provider value={{ activeLight, setActiveLight }}>
+        <Groups iniitalItems={data} />
+        <ExpandedLight />
+      </LightContext.Provider>
+    </div>
   );
 }

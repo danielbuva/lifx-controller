@@ -28,6 +28,7 @@ export function GroupCardLight({ light }: { light: Light }) {
       // hack because idk how to animate layout when removing element : )
       style={{ height: activeLight?.id === light.id ? 0 : "64px" }}
       variants={itemVariant}
+      onClick={(e) => e.stopPropagation()}
     >
       <AnimatePresence mode="wait">
         {activeLight?.id !== light.id && (
