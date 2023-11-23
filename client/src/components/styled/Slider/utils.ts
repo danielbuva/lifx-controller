@@ -11,7 +11,7 @@ export function onSliderSelect(
   } else if (left > container.clientWidth) {
     return normalizeTo;
   }
-  return (normalizeTo * (left * 100)) / container.clientWidth / 100;
+  return (normalizeTo * left) / container.clientWidth;
 }
 
 function f(hue: number, saturation: number = 100) {
@@ -33,6 +33,7 @@ export function clamp(number: number) {
 }
 
 export function hueSaturationToHex(hue: number, saturation: number) {
+  hue /= 30;
   return `#${f(hue, saturation)}${f(8 + hue, saturation)}${f(
     4 + hue,
     saturation

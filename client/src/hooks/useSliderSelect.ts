@@ -1,30 +1,65 @@
-import { onSliderSelect } from "@/components/styled/Slider/utils";
-import { useCallback, useRef } from "react";
+import type { LightConfigState } from "@/lib/types";
+import { clamp } from "framer-motion";
+import { type PointerEvent, useRef } from "react";
+
+import useSlideData from "./useSliderData";
 
 export default function useSliderSelect(
-  onChange: (sliderValue: number) => void,
-  normalizeTo: number = 100
+  configSelection: keyof LightConfigState
 ) {
-  const ref = useRef<HTMLDivElement>(null);
+  const { lightConfig, setLightConfig } = useSlideData();
+  const interactableAreaRef = useRef<HTMLDivElement>(null);
 
-  const onDrag = useCallback(
-    (e: MouseEvent) => {
-      if (ref.current) {
-        onChange(onSliderSelect(e, ref.current, normalizeTo));
-      }
-    },
-    [normalizeTo, onChange]
-  );
+  const getPosition = (pageX: number) => {
+    const interactableArea = interactableAreaRef.current;
+    if (interactableArea) {
+      // convert click coordinate to pixel coordinate within element 0 - 176
+      return pageX - interactableArea.getBoundingClientRect().left;
+    }
+    return lightConfig[configSelection];
+  };
 
-  const handleMouseDown = () => {
-    window.addEventListener("mousemove", onDrag);
-    window.addEventListener("mouseup", handleMouseUp);
+  const handleDrag = (e: MouseEvent) => {
+    const pointerPosition = getPosition(e.pageX);
+    if (configSelection === "hue") {
+      setLightConfig({
+        ...lightConfig,
+        hue: clamp(0, 360, (pointerPosition / 176) * 360),
+      });
+    } else {
+      setLightConfig({
+        ...lightConfig,
+        // normalize pointer position to 0 - 1
+        [configSelection]: clamp(0, 1, pointerPosition / 176),
+      });
+    }
   };
 
   const handleMouseUp = () => {
-    window.removeEventListener("mousemove", onDrag);
+    window.removeEventListener("mousemove", handleDrag);
     window.removeEventListener("mouseup", handleMouseUp);
   };
 
-  return { handleMouseDown, ref };
+  const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    const pointerPosition = getPosition(e.pageX);
+    if (configSelection === "hue") {
+      setLightConfig({
+        ...lightConfig,
+        hue: clamp(0, 360, (pointerPosition / 176) * 360),
+      });
+    } else {
+      setLightConfig({
+        ...lightConfig,
+        // normalize pointer position to 0 - 1
+        [configSelection]: clamp(0, 1, pointerPosition / 176),
+      });
+    }
+
+    // need global mouseup to remove listener even when
+    // user mouses up when out of element
+    window.addEventListener("mousemove", handleDrag);
+    window.addEventListener("mouseup", handleMouseUp);
+  };
+
+  return { handlePointerDown, interactableAreaRef };
 }

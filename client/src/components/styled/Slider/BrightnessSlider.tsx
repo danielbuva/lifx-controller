@@ -64,13 +64,13 @@ export default function BrightnessSlider() {
   };
 
   return (
-    <div className="relative w-44 h-9 select-none rounded-md overflow-hidden cursor-pointer">
-      <motion.div className="absolute w-44 h-9" style={{ background }} />
-      <div
-        ref={interactableAreaRef}
-        className="absolute w-44 h-9"
-        onPointerDown={handlePointerDown}
-      />
-    </div>
+    <motion.div
+      className="relative w-44 h-9 select-none rounded-md overflow-hidden cursor-pointer"
+      onPointerDown={handlePointerDown}
+      ref={interactableAreaRef}
+      style={{
+        background,
+      }}
+    ></motion.div>
   );
 }
