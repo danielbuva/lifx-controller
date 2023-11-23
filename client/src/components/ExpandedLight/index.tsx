@@ -15,8 +15,13 @@ import LightConfiguration from "./LightConfiguration";
 
 const expanded = {
   left: { x: -90 },
-  origin: { x: 0, y: 0, transition: { delay: 0.6 } },
+  origin: { x: 0, y: 0, transition: { delay: 0.45 } },
   right: { x: 90 },
+};
+
+const controls = {
+  bottom: { y: 90, opacity: 0 },
+  origin: { y: 0, opacity: 1, transition: { delay: 0.45 } },
 };
 
 export default function ExpandedLight() {
@@ -61,32 +66,53 @@ export default function ExpandedLight() {
               />
             </motion.div>
           </div>
-          <LightConfiguration
-            initialState={{
-              hue: activeLight.color.hue,
-              brightness: activeLight.brightness,
-              lightness: 50,
-              kelvin: activeLight.color.kelvin,
-              saturation: activeLight.color.saturation,
-            }}
-            isColor={isColor}
+          <motion.div
+            className="flex flex-col gap-4"
+            animate="origin"
+            initial="bottom"
+            exit="bottom"
+            variants={controls}
           >
-            <ColorOrWhite setIsColor={setIsColor} />
-            {isColor ? (
-              <>
-                <HueSlider />
-                <SaturationSlider />
-                <BrightnessSlider />
-              </>
-            ) : (
-              <>
-                <KelvinSlider />
-                <BrightnessSlider />
-              </>
-            )}
-
-            <ConfirmButton />
-          </LightConfiguration>
+            <LightConfiguration
+              initialState={{
+                hue: activeLight.color.hue,
+                brightness: activeLight.brightness,
+                lightness: 50,
+                kelvin: activeLight.color.kelvin,
+                saturation: activeLight.color.saturation,
+              }}
+              isColor={isColor}
+            >
+              <ColorOrWhite setIsColor={setIsColor} />
+              {isColor ? (
+                <motion.div
+                  className="h-full gap-4 flex flex-col"
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -10, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  layoutId="controls"
+                >
+                  <HueSlider />
+                  <SaturationSlider />
+                  <BrightnessSlider />
+                </motion.div>
+              ) : (
+                <motion.div
+                  className="h-full gap-4 flex flex-col"
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -10, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  layoutId="controls"
+                >
+                  <KelvinSlider />
+                  <BrightnessSlider />
+                </motion.div>
+              )}
+              <ConfirmButton />
+            </LightConfiguration>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
