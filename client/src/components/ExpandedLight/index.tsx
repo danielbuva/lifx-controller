@@ -1,6 +1,5 @@
 import useActiveLight from "@/hooks/useActiveLight";
 import { AnimatePresence, motion } from "framer-motion";
-// import { useCallback, useEffect, useRef } from "react";
 
 import ExpandedLightHeader from "./ExpandedLightHeader";
 import LightConfiguration from "./LightConfiguration";
@@ -14,7 +13,6 @@ export default function ExpandedLight() {
         <motion.div
           className="absolute w-3/5 h-2/4 flex flex-col border-2 bg-theme p-6 overflow-hidden gap-4 rounded-md"
           onClick={(e) => e.stopPropagation()}
-          // ref={ref}
           initial={{ opacity: 0, scale: 0, y: -100 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0, transition: { delay: 0.5 } }}
