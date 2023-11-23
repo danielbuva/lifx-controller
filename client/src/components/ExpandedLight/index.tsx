@@ -58,7 +58,7 @@ export default function ExpandedLight() {
           <LightConfiguration
             initialState={{
               hue: activeLight.color.hue,
-              brightness: activeLight.brightness * 100,
+              brightness: activeLight.brightness,
               lightness: 50,
               kelvin: activeLight.color.kelvin,
               saturation: activeLight.color.saturation,

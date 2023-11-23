@@ -19,7 +19,7 @@ import { clamp, hueSaturationToHex } from "./utils";
 export default function BrightnessSlider() {
   const { lightConfig, setLightConfig } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
-  const sliderX = useMotionValue(lightConfig.brightness);
+  const sliderX = useMotionValue(lightConfig.brightness * 100);
   const background = useMotionTemplate`linear-gradient(90deg, ${hueSaturationToHex(
     lightConfig.hue,
     lightConfig.saturation * 100
