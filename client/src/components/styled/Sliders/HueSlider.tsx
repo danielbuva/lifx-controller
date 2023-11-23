@@ -1,8 +1,10 @@
 import useSliderSelect from "@/hooks/useSliderSelect";
 
 export default function HueSlider() {
-  const { handlePointerDown, interactableAreaRef } =
-    useSliderSelect("hue");
+  const { handlePointerDown, interactableAreaRef } = useSliderSelect(
+    "hue",
+    360
+  );
 
   return (
     <div

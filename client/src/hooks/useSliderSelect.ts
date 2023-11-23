@@ -5,7 +5,8 @@ import { type PointerEvent, useRef } from "react";
 import useSlideData from "./useSliderData";
 
 export default function useSliderSelect(
-  configSelection: keyof LightConfigState
+  configSelection: keyof LightConfigState,
+  normalizeTo: number
 ) {
   const { lightConfig, setLightConfig } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
@@ -21,18 +22,15 @@ export default function useSliderSelect(
 
   const handleDrag = (e: MouseEvent) => {
     const pointerPosition = getPosition(e.pageX);
-    if (configSelection === "hue") {
-      setLightConfig({
-        ...lightConfig,
-        hue: clamp(0, 360, (pointerPosition / 176) * 360),
-      });
-    } else {
-      setLightConfig({
-        ...lightConfig,
-        // normalize pointer position to 0 - 1
-        [configSelection]: clamp(0, 1, pointerPosition / 176),
-      });
-    }
+    setLightConfig({
+      ...lightConfig,
+      // normalize pointer position to 0 - normalizeTo value
+      [configSelection]: clamp(
+        0,
+        normalizeTo,
+        (pointerPosition / 176) * normalizeTo
+      ),
+    });
   };
 
   const handleMouseUp = () => {
@@ -42,18 +40,15 @@ export default function useSliderSelect(
 
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     const pointerPosition = getPosition(e.pageX);
-    if (configSelection === "hue") {
-      setLightConfig({
-        ...lightConfig,
-        hue: clamp(0, 360, (pointerPosition / 176) * 360),
-      });
-    } else {
-      setLightConfig({
-        ...lightConfig,
-        // normalize pointer position to 0 - 1
-        [configSelection]: clamp(0, 1, pointerPosition / 176),
-      });
-    }
+    setLightConfig({
+      ...lightConfig,
+      // normalize pointer position to 0 - normalizeTo value
+      [configSelection]: clamp(
+        0,
+        normalizeTo,
+        (pointerPosition / 176) * normalizeTo
+      ),
+    });
 
     // need global mouseup to remove listener even when
     // user mouses up when out of element
