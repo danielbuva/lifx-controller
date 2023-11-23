@@ -27,6 +27,7 @@ export default function BrightnessSlider() {
   const getPosition = (pageX: number) => {
     const interactableArea = interactableAreaRef.current;
     if (interactableArea) {
+      // convert click coordinate to pixel coordinate within element 0 - 176
       return pageX - interactableArea.getBoundingClientRect().left;
     }
     return lightConfig.brightness;
@@ -36,6 +37,7 @@ export default function BrightnessSlider() {
     const pointerPosition = getPosition(e.pageX);
     setLightConfig({
       ...lightConfig,
+      // normalize pointer position to 0 - 1
       brightness: clamp(pointerPosition / 176),
     });
     sliderX.set(pointerPosition);
