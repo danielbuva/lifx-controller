@@ -80,8 +80,8 @@ export default function ExpandedLight() {
               </>
             ) : (
               <>
-                <BrightnessSlider />
                 <KelvinSlider />
+                <BrightnessSlider />
               </>
             )}
 
