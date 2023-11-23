@@ -12,8 +12,6 @@ export default function LightConfiguration({
   const [lightConfig, setLightConfig] =
     useState<LightConfigState>(initialState);
 
-  console.log(lightConfig);
-
   return (
     <SliderContext.Provider value={{ lightConfig, setLightConfig }}>
       {children}
