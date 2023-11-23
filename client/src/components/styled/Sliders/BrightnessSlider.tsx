@@ -1,5 +1,5 @@
 import useSlideData from "@/hooks/useSliderData";
-import { kelvinToHsl } from "@/lib/utils";
+import { kelvinToHsl, normalize } from "@/lib/utils";
 import {
   animate,
   motion,
@@ -20,7 +20,10 @@ import { clamp } from "./utils";
 export default function BrightnessSlider() {
   const { lightConfig, setLightConfig, isColor } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
-  const sliderX = useMotionValue(lightConfig.brightness * 100);
+  const sliderX = useMotionValue(
+    normalize(0, 1, 0, 176, lightConfig.brightness)
+  );
+  console.log(sliderX.get());
   let hsl: string;
 
   if (isColor) {

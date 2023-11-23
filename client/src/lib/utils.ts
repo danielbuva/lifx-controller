@@ -51,7 +51,7 @@ export function normalizeFrom176(
   );
 }
 
-function normalize(
+export function normalize(
   oldMin: number,
   oldMax: number,
   newMin: number,
