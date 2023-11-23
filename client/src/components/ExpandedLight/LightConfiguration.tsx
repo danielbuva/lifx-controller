@@ -11,13 +11,18 @@ export default function LightConfiguration({
 }) {
   const [lightConfig, setLightConfig] =
     useState<LightConfigState>(initialState);
-  const [isColor, setIsColor] = useState(lightConfig.saturation === 0);
+  const [isColor, setIsColor] = useState(lightConfig.saturation !== 0);
 
-  // console.log(lightConfig.saturation);
+  console.log(lightConfig.kelvin);
 
   return (
     <SliderContext.Provider
-      value={{ lightConfig, setLightConfig, isColor, setIsColor }}
+      value={{
+        lightConfig,
+        setLightConfig,
+        isColor,
+        setIsColor,
+      }}
     >
       {children}
     </SliderContext.Provider>
