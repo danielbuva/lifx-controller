@@ -5,10 +5,9 @@ import { hueSaturationToHex, hueToHex } from "./utils";
 
 export default function SaturationSlider() {
   const { lightConfig } = useSlideData();
-  const { handlePointerDown, interactableAreaRef } = useSliderSelect(
-    "saturation",
-    1
-  );
+  const { handlePointerDown, interactableAreaRef } = useSliderSelect({
+    configSelection: "saturation",
+  });
 
   return (
     <div

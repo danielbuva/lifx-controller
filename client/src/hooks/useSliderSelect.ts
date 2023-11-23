@@ -4,10 +4,15 @@ import { type PointerEvent, useRef } from "react";
 
 import useSlideData from "./useSliderData";
 
-export default function useSliderSelect(
-  configSelection: keyof LightConfigState,
-  normalizeTo: number
-) {
+export default function useSliderSelect({
+  configSelection,
+  normalizeFrom = 0,
+  normalizeTo = 1,
+}: {
+  configSelection: keyof LightConfigState;
+  normalizeFrom?: number;
+  normalizeTo?: number;
+}) {
   const { lightConfig, setLightConfig } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
 
@@ -24,11 +29,11 @@ export default function useSliderSelect(
     const pointerPosition = getPosition(e.pageX);
     setLightConfig({
       ...lightConfig,
-      // normalize pointer position to 0 - normalizeTo value
-      [configSelection]: clamp(
-        0,
+      // normalize pointer position to normalizeFrom value - normalizeTo value
+      [configSelection]: normalize(
+        normalizeFrom,
         normalizeTo,
-        (pointerPosition / 176) * normalizeTo
+        pointerPosition
       ),
     });
   };
@@ -42,11 +47,11 @@ export default function useSliderSelect(
     const pointerPosition = getPosition(e.pageX);
     setLightConfig({
       ...lightConfig,
-      // normalize pointer position to 0 - normalizeTo value
-      [configSelection]: clamp(
-        0,
+      // normalize pointer position to normalizeFrom value - normalizeTo value
+      [configSelection]: normalize(
+        normalizeFrom,
         normalizeTo,
-        (pointerPosition / 176) * normalizeTo
+        pointerPosition
       ),
     });
 
@@ -57,4 +62,16 @@ export default function useSliderSelect(
   };
 
   return { handlePointerDown, interactableAreaRef };
+}
+
+function normalize(
+  normalizeFrom: number,
+  normalizeTo: number,
+  value: number
+) {
+  return clamp(
+    normalizeFrom,
+    normalizeTo,
+    (value / 176) * (normalizeTo - normalizeFrom) + normalizeFrom
+  );
 }
