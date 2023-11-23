@@ -11,7 +11,14 @@ export default function ConfirmButton() {
   const handleClick = () => {
     setLightState({ id: activeLight.id, color: createBody(lightConfig) });
   };
-  return <button onClick={handleClick}>confirm</button>;
+  return (
+    <button
+      className="w-44 h-9 rounded-md justify-center items-center flex"
+      onClick={handleClick}
+    >
+      confirm
+    </button>
+  );
 }
 
 function createBody({ hue, saturation, brightness }: LightConfigState) {
