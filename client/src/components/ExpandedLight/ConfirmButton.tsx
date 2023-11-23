@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function ConfirmButton() {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const setLightState = useLightState();
-  const { lightConfig } = useSlideData();
+  const { lightConfig, isColor } = useSlideData();
   const { activeLight } = useActiveLight();
   if (!activeLight) return null;
   const handleClick = () => {
@@ -16,7 +16,9 @@ export default function ConfirmButton() {
       setIsOnCooldown(true);
       setLightState({
         id: activeLight.id,
-        color: createBody(lightConfig),
+        color: isColor
+          ? createColorBody(lightConfig)
+          : createWhiteBody(lightConfig),
       });
       setTimeout(() => {
         setIsOnCooldown(false);
@@ -37,6 +39,14 @@ export default function ConfirmButton() {
   );
 }
 
-function createBody({ hue, saturation, brightness }: LightConfigState) {
+function createColorBody({
+  hue,
+  saturation,
+  brightness,
+}: LightConfigState) {
   return `hue:${hue} saturation:${saturation} brightness:${brightness}`;
+}
+
+function createWhiteBody({ kelvin, brightness }: LightConfigState) {
+  return `kelvin:${kelvin} brightness:${brightness}`;
 }
