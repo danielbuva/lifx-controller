@@ -1,41 +1,64 @@
 import useSlideData from "@/hooks/useSliderData";
-import { motion, useDragControls } from "framer-motion";
+import {
+  animate,
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+} from "framer-motion";
+import { type PointerEvent, useRef } from "react";
 
 import { hueToHex } from "./utils";
 
+// it animates to cursor click
+// if you start dragging before animation is over
+// it does a jarring snap to cursor
+// todo: find a way to animate between transitions of dragging and clicking
+
 export default function BrightnessSlider() {
   const { lightConfig } = useSlideData();
-  const dragControls = useDragControls();
-  // const setBrightness = (brightnessValue: number) => {
-  //   setLightConfig({ ...lightConfig, brightness: brightnessValue });
-  // };
+  const interactableAreaRef = useRef<HTMLDivElement>(null);
+  const sliderX = useMotionValue(lightConfig.brightness);
+  const background = useMotionTemplate`linear-gradient(90deg, ${hueToHex(
+    lightConfig.hue
+  )} ${sliderX}px, #d1d5db 0)`;
+
+  const getPosition = (pageX: number) => {
+    const interactableArea = interactableAreaRef.current;
+    if (interactableArea) {
+      return pageX - interactableArea.getBoundingClientRect().left;
+    }
+    return lightConfig.brightness;
+  };
+
+  const handleDrag = (e: MouseEvent) => {
+    sliderX.set(getPosition(e.pageX));
+  };
+
+  const handleMouseUp = () => {
+    window.removeEventListener("mousemove", handleDrag);
+    window.removeEventListener("mouseup", handleMouseUp);
+  };
+
+  const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    animate(sliderX, getPosition(e.pageX));
+    // need global mouseup to remove listener even when
+    // user mouses up when out of element
+    window.addEventListener("mousemove", handleDrag);
+    window.addEventListener("mouseup", handleMouseUp);
+  };
 
   return (
-    <>
+    <div className="relative w-44 h-7 select-none rounded-md overflow-hidden">
+      <motion.div className="absolute w-44 h-7" style={{ background }} />
       <div
-        className="relative w-44 h-7 overflow-hidden bg-gray-300"
-        onPointerDown={(e) =>
-          dragControls.start(e, { snapToCursor: true })
-        }
-      >
-        <motion.div
-          className="h-7 w-44 relative"
-          drag="x"
-          dragConstraints={{ left: -85, right: 88 }}
-          dragMomentum={false}
-          dragControls={dragControls}
-          animate={{ x: normalizeBrightness(lightConfig.brightness) }}
-        >
-          <div
-            className="h-7 w-44 absolute left-[-88px]"
-            style={{ backgroundColor: hueToHex(lightConfig.hue) }}
-          />
-        </motion.div>
-      </div>
-    </>
+        ref={interactableAreaRef}
+        className="absolute w-44 h-7"
+        onPointerDown={handlePointerDown}
+      />
+    </div>
   );
 }
 
-function normalizeBrightness(brightness: number) {
-  return (brightness * 176) / 100 - 88;
-}
+// function clamp(number: number) {
+//   return Math.max(0, Math.min(number, 1));
+// }
