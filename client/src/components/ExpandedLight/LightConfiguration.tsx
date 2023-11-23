@@ -13,7 +13,7 @@ export default function LightConfiguration({
     useState<LightConfigState>(initialState);
   const [isColor, setIsColor] = useState(lightConfig.saturation !== 0);
 
-  console.log(lightConfig.kelvin);
+  // console.log(lightConfig.kelvin);
 
   return (
     <SliderContext.Provider

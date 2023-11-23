@@ -7,7 +7,7 @@ import {
 } from "framer-motion";
 import { type PointerEvent, useRef } from "react";
 
-import { clamp, hueSaturationToHex } from "./utils";
+import { clamp } from "./utils";
 
 // it animates to cursor click
 // if you start dragging before animation is over
@@ -17,13 +17,16 @@ import { clamp, hueSaturationToHex } from "./utils";
 // w-44 = 176px
 
 export default function BrightnessSlider() {
-  const { lightConfig, setLightConfig } = useSlideData();
+  const { lightConfig, setLightConfig, isColor } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
   const sliderX = useMotionValue(lightConfig.brightness * 100);
-  const background = useMotionTemplate`linear-gradient(90deg, ${hueSaturationToHex(
-    lightConfig.hue,
-    lightConfig.saturation * 100
-  )} ${sliderX}px, #d1d5db 0)`;
+  const background = useMotionTemplate`linear-gradient(90deg, hsl(${
+    lightConfig.hue
+  }, ${lightConfig.saturation * 100}%, ${
+    isColor ? 50 : lightConfig.lightness
+  }%) ${sliderX}px, #d1d5db 0)`;
+  // console.log(lightConfig.hue, lightConfig.saturation);
+  // console.log(background.get());
 
   const getPosition = (pageX: number) => {
     const interactableArea = interactableAreaRef.current;

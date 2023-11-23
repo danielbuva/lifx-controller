@@ -1,5 +1,5 @@
 import type { LightConfigState } from "@/lib/types";
-import { clamp } from "framer-motion";
+import { normalize } from "@/lib/utils";
 import { type PointerEvent, useRef } from "react";
 
 import useSlideData from "./useSliderData";
@@ -62,16 +62,4 @@ export default function useSliderSelect({
   };
 
   return { handlePointerDown, interactableAreaRef };
-}
-
-function normalize(
-  normalizeFrom: number,
-  normalizeTo: number,
-  value: number
-) {
-  return clamp(
-    normalizeFrom,
-    normalizeTo,
-    (value / 176) * (normalizeTo - normalizeFrom) + normalizeFrom
-  );
 }
