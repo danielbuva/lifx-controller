@@ -39,12 +39,10 @@ const app = new Elysia()
   })
   .post("/lights/:id/toggle", async ({ params }) => {
     const data = await toggleLight(params.id);
-    // console.log({ data });
     return data;
   })
   .put("/lights/:id/state", async ({ body, params: { id } }) => {
     const data = await setLightState(id, body as { color: string });
-    console.log(data);
     return data;
   })
   .listen(3000);
@@ -116,7 +114,6 @@ async function toggleLight(id: string) {
 }
 
 async function setLightState(id: string, body: { color: string }) {
-  // console.log(id, body);
   return new Promise((resolve, reject) => {
     const options = {
       hostname: "api.lifx.com",

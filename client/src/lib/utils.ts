@@ -39,7 +39,7 @@ export function hsbkToHsl({
   return { hue, saturation };
 }
 
-export function normalize(
+export function normalizeFrom176(
   normalizeFrom: number,
   normalizeTo: number,
   value: number
@@ -48,6 +48,18 @@ export function normalize(
     normalizeFrom,
     normalizeTo,
     (value / 176) * (normalizeTo - normalizeFrom) + normalizeFrom
+  );
+}
+
+function normalize(
+  oldMin: number,
+  oldMax: number,
+  newMin: number,
+  newMax: number,
+  value: number
+) {
+  return (
+    ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin
   );
 }
 
@@ -83,4 +95,70 @@ export function rgbToHsl(
   }
 
   return [h * 360, s, l * 100];
+}
+
+function interpolateComponent(
+  componentStart: number,
+  componentEnd: number,
+  factor: number
+) {
+  return Math.round(
+    componentStart + (componentEnd - componentStart) * factor
+  );
+}
+
+type RGB = {
+  r: number;
+  b: number;
+  g: number;
+};
+
+function interpolateColor(colorStart: RGB, colorEnd: RGB, factor: number) {
+  return {
+    r: interpolateComponent(colorStart.r, colorEnd.r, factor),
+    g: interpolateComponent(colorStart.g, colorEnd.g, factor),
+    b: interpolateComponent(colorStart.b, colorEnd.b, factor),
+  };
+}
+
+export function getHslAtPosition(
+  mouseX: number
+): [number, number, number] {
+  // Define the start and end colors in RGB
+  const colorStart = { r: 240, g: 162, b: 114 };
+  const colorEnd = { r: 224, g: 228, b: 255 };
+
+  // Normalize the mouse position
+  const position = mouseX / 176;
+
+  // Interpolate the color
+  const interpolatedColor = interpolateColor(
+    colorStart,
+    colorEnd,
+    position
+  );
+
+  return rgbToHsl(
+    interpolatedColor.r,
+    interpolatedColor.g,
+    interpolatedColor.b
+  );
+}
+
+export function kelvinToHsl(kelvin: number) {
+  const colorStart = { r: 240, g: 162, b: 114 };
+  const colorEnd = { r: 224, g: 228, b: 255 };
+  const interpolatedColor = interpolateColor(
+    colorStart,
+    colorEnd,
+    normalize(1500, 9000, 0, 1, kelvin)
+  );
+
+  // console.log("normal", normalize(0, 1, kelvin), "kelvin: ", kelvin);
+
+  return rgbToHsl(
+    interpolatedColor.r,
+    interpolatedColor.g,
+    interpolatedColor.b
+  );
 }

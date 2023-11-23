@@ -14,8 +14,6 @@ export default function LightConfiguration({
   const [lightConfig, setLightConfig] =
     useState<LightConfigState>(initialState);
 
-  // console.log(lightConfig.kelvin);
-
   return (
     <SliderContext.Provider
       value={{

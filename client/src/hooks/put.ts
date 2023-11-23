@@ -4,7 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 export function useLightState() {
   return useMutation({
     mutationFn: async ({ id, color }: { id: string; color: string }) => {
-      // console.log({ color });
       const response = await fetch(`${url}/id:${id}/state`, {
         method: "PUT",
         headers: { "content-type": "application/json" },

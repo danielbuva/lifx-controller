@@ -1,5 +1,5 @@
 import useSlideData from "@/hooks/useSliderData";
-import { normalize, rgbToHsl } from "@/lib/utils";
+import { getHslAtPosition, normalizeFrom176 } from "@/lib/utils";
 import { clamp } from "framer-motion/dom";
 import { type PointerEvent, useRef } from "react";
 
@@ -22,7 +22,7 @@ export default function KelvinSlider() {
     setLightConfig({
       ...lightConfig,
       hue,
-      kelvin: normalize(1500, 9000, pointerPosition),
+      kelvin: normalizeFrom176(1500, 9000, pointerPosition),
       saturation,
       lightness,
     });
@@ -39,7 +39,7 @@ export default function KelvinSlider() {
     setLightConfig({
       ...lightConfig,
       hue,
-      kelvin: normalize(1500, 9000, pointerPosition),
+      kelvin: normalizeFrom176(1500, 9000, pointerPosition),
       saturation,
       lightness,
     });
@@ -55,51 +55,5 @@ export default function KelvinSlider() {
       onMouseDown={handlePointerDown}
       ref={interactableAreaRef}
     ></div>
-  );
-}
-
-type RGB = {
-  r: number;
-  b: number;
-  g: number;
-};
-
-function interpolateComponent(
-  componentStart: number,
-  componentEnd: number,
-  factor: number
-) {
-  return Math.round(
-    componentStart + (componentEnd - componentStart) * factor
-  );
-}
-
-function interpolateColor(colorStart: RGB, colorEnd: RGB, factor: number) {
-  return {
-    r: interpolateComponent(colorStart.r, colorEnd.r, factor),
-    g: interpolateComponent(colorStart.g, colorEnd.g, factor),
-    b: interpolateComponent(colorStart.b, colorEnd.b, factor),
-  };
-}
-
-function getHslAtPosition(mouseX: number): [number, number, number] {
-  // Define the start and end colors in RGB
-  const colorStart = { r: 240, g: 162, b: 114 };
-  const colorEnd = { r: 224, g: 228, b: 255 };
-
-  // Normalize the mouse position
-  const position = mouseX / 176;
-
-  // Interpolate the color
-  const interpolatedColor = interpolateColor(
-    colorStart,
-    colorEnd,
-    position
-  );
-
-  return rgbToHsl(
-    interpolatedColor.r,
-    interpolatedColor.g,
-    interpolatedColor.b
   );
 }

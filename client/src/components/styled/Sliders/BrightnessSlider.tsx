@@ -1,4 +1,5 @@
 import useSlideData from "@/hooks/useSliderData";
+import { kelvinToHsl } from "@/lib/utils";
 import {
   animate,
   motion,
@@ -20,11 +21,16 @@ export default function BrightnessSlider() {
   const { lightConfig, setLightConfig, isColor } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
   const sliderX = useMotionValue(lightConfig.brightness * 100);
-  const background = useMotionTemplate`linear-gradient(90deg, hsl(${
-    lightConfig.hue
-  }, ${lightConfig.saturation * 100}%, ${
-    isColor ? 50 : lightConfig.lightness
-  }%) ${sliderX}px, #d1d5db 0)`;
+  let hsl: string;
+
+  if (isColor) {
+    hsl = `hsl(${lightConfig.hue}, ${lightConfig.saturation * 100}%, 50%)`;
+  } else {
+    const [hue, saturation, lightness] = kelvinToHsl(lightConfig.kelvin);
+    hsl = `hsl(${hue}, ${saturation * 100}%, ${lightness}%)`;
+  }
+
+  const background = useMotionTemplate`linear-gradient(90deg, ${hsl} ${sliderX}px, #d1d5db 0)`;
 
   const getPosition = (pageX: number) => {
     const interactableArea = interactableAreaRef.current;

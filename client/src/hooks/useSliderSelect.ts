@@ -1,5 +1,5 @@
 import type { LightConfigState } from "@/lib/types";
-import { normalize } from "@/lib/utils";
+import { normalizeFrom176 } from "@/lib/utils";
 import { type PointerEvent, useRef } from "react";
 
 import useSlideData from "./useSliderData";
@@ -30,7 +30,7 @@ export default function useSliderSelect({
     setLightConfig({
       ...lightConfig,
       // normalize pointer position to normalizeFrom value - normalizeTo value
-      [configSelection]: normalize(
+      [configSelection]: normalizeFrom176(
         normalizeFrom,
         normalizeTo,
         pointerPosition
@@ -48,7 +48,7 @@ export default function useSliderSelect({
     setLightConfig({
       ...lightConfig,
       // normalize pointer position to normalizeFrom value - normalizeTo value
-      [configSelection]: normalize(
+      [configSelection]: normalizeFrom176(
         normalizeFrom,
         normalizeTo,
         pointerPosition
