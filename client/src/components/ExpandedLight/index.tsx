@@ -7,6 +7,7 @@ import { hsbkToHsl } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
 
+import ConfirmButton from "./ConfirmButton";
 import LightConfiguration from "./LightConfiguration";
 
 const expanded = {
@@ -64,6 +65,7 @@ export default function ExpandedLight() {
           >
             <HueSlider />
             <BrightnessSlider />
+            <ConfirmButton />
           </LightConfiguration>
         </motion.div>
       )}
