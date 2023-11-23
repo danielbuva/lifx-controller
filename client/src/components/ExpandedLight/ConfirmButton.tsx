@@ -12,11 +12,16 @@ export default function ConfirmButton() {
   const { activeLight } = useActiveLight();
   if (!activeLight) return null;
   const handleClick = () => {
-    setIsOnCooldown(true);
-    setLightState({ id: activeLight.id, color: createBody(lightConfig) });
-    setTimeout(() => {
-      setIsOnCooldown(false);
-    }, 1000);
+    if (!isOnCooldown) {
+      setIsOnCooldown(true);
+      setLightState({
+        id: activeLight.id,
+        color: createBody(lightConfig),
+      });
+      setTimeout(() => {
+        setIsOnCooldown(false);
+      }, 1000);
+    }
   };
   return (
     <button
