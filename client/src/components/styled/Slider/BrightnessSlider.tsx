@@ -14,8 +14,10 @@ import { hueToHex } from "./utils";
 // it does a jarring snap to cursor
 // todo: find a way to animate between transitions of dragging and clicking
 
+// w-44 = 176px
+
 export default function BrightnessSlider() {
-  const { lightConfig } = useSlideData();
+  const { lightConfig, setLightConfig } = useSlideData();
   const interactableAreaRef = useRef<HTMLDivElement>(null);
   const sliderX = useMotionValue(lightConfig.brightness);
   const background = useMotionTemplate`linear-gradient(90deg, ${hueToHex(
@@ -31,7 +33,12 @@ export default function BrightnessSlider() {
   };
 
   const handleDrag = (e: MouseEvent) => {
-    sliderX.set(getPosition(e.pageX));
+    const pointerPosition = getPosition(e.pageX);
+    setLightConfig({
+      ...lightConfig,
+      brightness: clamp(pointerPosition / 176),
+    });
+    sliderX.set(pointerPosition);
   };
 
   const handleMouseUp = () => {
@@ -40,7 +47,13 @@ export default function BrightnessSlider() {
   };
 
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    const pointerPosition = getPosition(e.pageX);
+    setLightConfig({
+      ...lightConfig,
+      brightness: clamp(pointerPosition / 176),
+    });
     animate(sliderX, getPosition(e.pageX));
+
     // need global mouseup to remove listener even when
     // user mouses up when out of element
     window.addEventListener("mousemove", handleDrag);
@@ -59,6 +72,6 @@ export default function BrightnessSlider() {
   );
 }
 
-// function clamp(number: number) {
-//   return Math.max(0, Math.min(number, 1));
-// }
+function clamp(number: number) {
+  return Math.max(0, Math.min(number, 1));
+}
