@@ -8,7 +8,6 @@ import {
 
 export const SliderContext = createContext<{
   isColor: boolean;
-  setIsColor: Dispatch<SetStateAction<boolean>>;
   lightConfig: {
     hue: number;
     brightness: number;

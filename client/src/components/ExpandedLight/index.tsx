@@ -7,8 +7,9 @@ import { useToggle } from "@/hooks/post";
 import useActiveLight from "@/hooks/useActiveLight";
 import { hsbkToHsl } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
+import ColorOrWhite from "./ColorOrWhite";
 import ConfirmButton from "./ConfirmButton";
 import LightConfiguration from "./LightConfiguration";
 
@@ -20,6 +21,10 @@ const expanded = {
 
 export default function ExpandedLight() {
   const { activeLight } = useActiveLight();
+  const [isColor, setIsColor] = useState(
+    activeLight?.color.saturation !== 0
+  );
+
   const ref = useClickOutsideExpandedLight();
   const toggle = useToggle("id");
   return (
@@ -64,11 +69,22 @@ export default function ExpandedLight() {
               kelvin: activeLight.color.kelvin,
               saturation: activeLight.color.saturation,
             }}
+            isColor={isColor}
           >
-            <HueSlider />
-            <SaturationSlider />
-            <BrightnessSlider />
-            <KelvinSlider />
+            <ColorOrWhite setIsColor={setIsColor} />
+            {isColor ? (
+              <>
+                <HueSlider />
+                <SaturationSlider />
+                <BrightnessSlider />
+              </>
+            ) : (
+              <>
+                <BrightnessSlider />
+                <KelvinSlider />
+              </>
+            )}
+
             <ConfirmButton />
           </LightConfiguration>
         </motion.div>

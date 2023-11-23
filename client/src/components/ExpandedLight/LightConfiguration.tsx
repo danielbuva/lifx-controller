@@ -5,13 +5,14 @@ import { type ReactNode, useState } from "react";
 export default function LightConfiguration({
   children,
   initialState,
+  isColor,
 }: {
   children: ReactNode;
   initialState: LightConfigState;
+  isColor: boolean;
 }) {
   const [lightConfig, setLightConfig] =
     useState<LightConfigState>(initialState);
-  const [isColor, setIsColor] = useState(lightConfig.saturation !== 0);
 
   // console.log(lightConfig.kelvin);
 
@@ -21,7 +22,6 @@ export default function LightConfiguration({
         lightConfig,
         setLightConfig,
         isColor,
-        setIsColor,
       }}
     >
       {children}

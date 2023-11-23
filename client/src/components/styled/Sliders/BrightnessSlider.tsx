@@ -25,8 +25,6 @@ export default function BrightnessSlider() {
   }, ${lightConfig.saturation * 100}%, ${
     isColor ? 50 : lightConfig.lightness
   }%) ${sliderX}px, #d1d5db 0)`;
-  // console.log(lightConfig.hue, lightConfig.saturation);
-  // console.log(background.get());
 
   const getPosition = (pageX: number) => {
     const interactableArea = interactableAreaRef.current;
