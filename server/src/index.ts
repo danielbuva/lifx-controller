@@ -1,7 +1,11 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
 import https from "https";
 import type { GroupInfo, LightsResponse } from "./types";
+
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const headers = {
   Authorization: `Bearer ${process.env.TOKEN}`,
@@ -37,10 +41,30 @@ const app = new Elysia()
 
     return Object.values(groupedLights);
   })
+  .get("/lights/presets", async () => {
+    return prisma.preset.findMany();
+  })
   .post("/lights/:id/toggle", async ({ params }) => {
     const data = await toggleLight(params.id);
     return data;
   })
+  .post(
+    "/lights/presets/add",
+    async ({ body }) => {
+      prisma.preset.create({ data: body });
+    },
+    {
+      body: t.Object({
+        label: t.String(),
+        hue: t.Number(),
+        saturation: t.Number(),
+        lightness: t.Number(),
+        brightness: t.Number(),
+        kelvin: t.Number(),
+        colorRepresentation: t.String(),
+      }),
+    }
+  )
   .put("/lights/:id/state", async ({ body, params: { id } }) => {
     const data = await setLightState(id, body as { color: string });
     return data;
