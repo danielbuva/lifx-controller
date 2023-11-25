@@ -62,7 +62,6 @@ const app = new Elysia()
         lightness: t.Nullable(t.Number()),
         brightness: t.Number(),
         kelvin: t.Nullable(t.Number()),
-        colorRepresentation: t.String(),
       }),
     }
   )
