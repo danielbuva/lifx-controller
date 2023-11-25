@@ -73,6 +73,7 @@ const app = new Elysia()
     },
     {
       body: t.Object({
+        power: t.Literal(Power.ON),
         color: t.String(),
       }),
     }
