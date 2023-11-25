@@ -3,7 +3,6 @@ import { presets } from "@/lib/elysia";
 import Preset from "./Preset";
 
 export default function Presets() {
-  console.log("presets: ", presets);
   if (!presets || presets.length === 0) return null;
 
   return (
