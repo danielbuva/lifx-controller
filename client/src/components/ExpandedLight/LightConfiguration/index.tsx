@@ -5,6 +5,7 @@ import type { Light } from "@server/types";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+import AddPresetButton from "./AddPresetButton";
 import ColorControls from "./controls/ColorControls";
 import WhiteControls from "./controls/WhiteControls";
 
@@ -31,6 +32,7 @@ export default function LightConfiguration({ light }: { light: Light }) {
           isColor,
         }}
       >
+        <AddPresetButton />
         <ColorOrWhite setIsColor={setIsColor} />
         {isColor ? <ColorControls /> : <WhiteControls />}
       </SliderContext.Provider>
