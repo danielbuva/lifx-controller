@@ -58,7 +58,7 @@ export default function Presets() {
       </div>
       <div
         className={cn(
-          "h-44 bg-theme w-full rounded-bl-md rounded-br-md p-2",
+          "h-24 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row",
           { "cursor-wait": isOnCooldown }
         )}
       >
