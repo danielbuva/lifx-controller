@@ -12,6 +12,7 @@ datasource db {
 
 model Preset {
   id                  Int    @id @default(autoincrement())
+  lightId             Int
   label               String @unique
   hue                 Int?
   saturation          Int?
