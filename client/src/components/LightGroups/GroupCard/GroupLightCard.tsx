@@ -2,7 +2,7 @@ import Switch from "@/components/styled/Switch";
 import useActiveLight from "@/hooks/useActiveLight";
 import { togglePower } from "@/lib/elysia";
 import { cn, hsbkToHsl } from "@/lib/utils";
-import { Light } from "@server/types";
+import type { Light } from "@server/types";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { itemVariant } from "./utils";

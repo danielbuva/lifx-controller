@@ -58,13 +58,13 @@ export default function BrightnessSlider() {
     window.removeEventListener("mouseup", handleMouseUp);
   };
 
-  const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
+  const handlePointerDown = async (e: PointerEvent<HTMLDivElement>) => {
     const pointerPosition = getPosition(e.pageX);
     setLightConfig({
       ...lightConfig,
       brightness: clamp(pointerPosition / 176),
     });
-    animate(sliderX, getPosition(e.pageX));
+    await animate(sliderX, getPosition(e.pageX));
 
     // need global mouseup to remove listener even when
     // user mouses up when out of element

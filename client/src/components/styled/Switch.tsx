@@ -1,6 +1,6 @@
 import { itemVariant } from "@/components/LightGroups/GroupCard/utils";
-import { Power } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import type { Power } from "@server/types";
 import { motion } from "framer-motion";
 import { type MouseEvent, useState } from "react";
 

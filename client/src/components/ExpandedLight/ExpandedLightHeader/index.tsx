@@ -1,7 +1,7 @@
 import Switch from "@/components/styled/Switch";
 import { togglePower } from "@/lib/elysia";
 import { hsbkToHsl } from "@/lib/utils";
-import { Light } from "@server/types";
+import type { Light } from "@server/types";
 import { motion } from "framer-motion";
 
 const expanded = {

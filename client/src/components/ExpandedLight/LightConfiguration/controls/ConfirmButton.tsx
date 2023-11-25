@@ -13,7 +13,7 @@ export default function ConfirmButton() {
   const handleClick = async () => {
     if (!isOnCooldown) {
       setIsOnCooldown(true);
-      setLightState({
+      await setLightState({
         id: activeLight.id,
         color: isColor
           ? createColorBody(lightConfig)

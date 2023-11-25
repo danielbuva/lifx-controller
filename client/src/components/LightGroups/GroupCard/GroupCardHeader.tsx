@@ -1,6 +1,6 @@
 import Switch from "@/components/styled/Switch";
 import { togglePower } from "@/lib/elysia";
-import { Power } from "@server/types";
+import type { Power } from "@server/types";
 import { motion } from "framer-motion";
 
 import { itemVariant } from "./utils";
