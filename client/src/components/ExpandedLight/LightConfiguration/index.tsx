@@ -1,6 +1,7 @@
 import ColorOrWhite from "@/components/ExpandedLight/LightConfiguration/controls/ColorOrWhite";
 import { SliderContext } from "@/hooks/useSliderData";
-import type { Light, LightConfigState } from "@/lib/types";
+import type { LightConfigState } from "@/lib/types";
+import type { Light } from "@server/types";
 import { motion } from "framer-motion";
 import { useState } from "react";
 

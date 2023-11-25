@@ -1,4 +1,4 @@
-import type { Light } from "@/lib/types";
+import type { Light } from "@server/types";
 import {
   type Dispatch,
   type SetStateAction,
