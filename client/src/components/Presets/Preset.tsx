@@ -1,7 +1,9 @@
+import useActiveLight from "@/hooks/useActiveLight";
 import { setLightState } from "@/lib/elysia";
 import {
   createColorBody,
   createWhiteBody,
+  hsbkToHs,
   kelvinToHsl,
 } from "@/lib/utils";
 import type { Preset } from "@server/types";
@@ -15,6 +17,7 @@ export default function Preset({
   kelvin,
   brightness,
 }: Preset) {
+  const { setNewHs } = useActiveLight();
   let backgroundColor: string;
   if (kelvin) {
     const [hue, saturation, lightness] = kelvinToHsl(kelvin);
@@ -24,11 +27,20 @@ export default function Preset({
   }
   const handleClick = async () => {
     if (kelvin) {
+      const [hue, saturation] = kelvinToHsl(kelvin);
+      setNewHs({
+        hs: hsbkToHs({ hue, saturation: saturation * 1.8, kelvin }),
+        from: lightId,
+      });
       await setLightState({
         id: lightId,
         color: createWhiteBody({ kelvin, brightness }),
       });
     } else if (hue != null && saturation != null) {
+      setNewHs({
+        hs: { hue, saturation: saturation * 100 },
+        from: lightId,
+      });
       await setLightState({
         id: lightId,
         color: createColorBody({ hue, saturation, brightness }),

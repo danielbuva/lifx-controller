@@ -27,8 +27,8 @@ export default function LightGroups() {
         >
           <Groups />
           <ExpandedLight />
+          <Presets />
         </LightContext.Provider>
-        <Presets />
       </div>
     </div>
   );
