@@ -1,5 +1,5 @@
 import ExpandedLight from "@/components/ExpandedLight";
-import Presets from "@/components/Presets";
+import PresetsCard from "@/components/PresetsCard";
 import { LightContext } from "@/hooks/useActiveLight";
 import type { Light } from "@server/types";
 import { useState } from "react";
@@ -27,7 +27,7 @@ export default function LightGroups() {
         >
           <Groups />
           <ExpandedLight />
-          <Presets />
+          <PresetsCard />
         </LightContext.Provider>
       </div>
     </div>

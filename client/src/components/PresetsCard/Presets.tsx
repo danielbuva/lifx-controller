@@ -11,10 +11,17 @@ import { useState } from "react";
 
 import Preset from "./Preset";
 
-export default function Presets() {
+export default function Presets({ id }: { id?: string }) {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const { setNewHs } = useActiveLight();
   if (!presets || presets.length === 0) return null;
+  let presetsToShow = presets;
+  if (id) {
+    presetsToShow = presetsToShow.filter(
+      (preset) => preset.lightId === id
+    );
+  }
+  if (presetsToShow.length === 0) return null;
 
   const handleClick = async (
     kelvin: number | null,
@@ -52,25 +59,20 @@ export default function Presets() {
   };
 
   return (
-    <div className="w-full shadow-theme rounded-md overflow-hidden bg-theme">
-      <div className="flex flex-row justify-between bg-slate-600 p-4 rounded-tl-md rounded-tr-md">
-        <h2 className="text-xl font-semibold text-white">presets</h2>
-      </div>
-      <div
-        className={cn(
-          "h-24 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row",
-          { "cursor-wait": isOnCooldown }
-        )}
-      >
-        {presets.map((preset) => (
-          <Preset
-            key={preset.id}
-            {...preset}
-            handleClick={handleClick}
-            isOnCooldown={isOnCooldown}
-          />
-        ))}
-      </div>
+    <div
+      className={cn(
+        "h-24 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row",
+        { "cursor-wait": isOnCooldown }
+      )}
+    >
+      {presetsToShow.map((preset) => (
+        <Preset
+          key={preset.id}
+          {...preset}
+          handleClick={handleClick}
+          isOnCooldown={isOnCooldown}
+        />
+      ))}
     </div>
   );
 }
