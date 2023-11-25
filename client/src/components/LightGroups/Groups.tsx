@@ -1,4 +1,4 @@
-import type { GroupInfo } from "@server/types";
+import { lights } from "@/lib/elysia";
 import { Reorder } from "framer-motion";
 import { useState } from "react";
 
@@ -18,12 +18,10 @@ const container = {
   },
 };
 
-export default function Groups({
-  iniitalItems,
-}: {
-  iniitalItems: GroupInfo[];
-}) {
-  const [items, setItems] = useState(iniitalItems);
+export default function Groups() {
+  const [items, setItems] = useState(lights);
+
+  if (!items) return null;
 
   return (
     <Reorder.Group
