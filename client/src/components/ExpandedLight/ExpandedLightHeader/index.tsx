@@ -1,6 +1,7 @@
 import Switch from "@/components/styled/Switch";
+import useActiveLight from "@/hooks/useActiveLight";
 import { togglePower } from "@/lib/elysia";
-import { hsbkToHsl } from "@/lib/utils";
+import { hsbkToHs } from "@/lib/utils";
 import type { Light } from "@server/types";
 import { motion } from "framer-motion";
 
@@ -11,6 +12,8 @@ const expanded = {
 };
 
 export default function ExpandedLightHeader({ light }: { light: Light }) {
+  const { newHs } = useActiveLight();
+
   return (
     <div className="w-full flex justify-between">
       <motion.h2
@@ -28,7 +31,7 @@ export default function ExpandedLightHeader({ light }: { light: Light }) {
         variants={expanded}
       >
         <Switch
-          color={hsbkToHsl(light.color)}
+          color={newHs ? newHs.hs : hsbkToHs(light.color)}
           power={light.power}
           toggle={() => togglePower("id:" + light.id)}
         />

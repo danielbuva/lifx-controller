@@ -8,6 +8,13 @@ import Groups from "./Groups";
 
 export default function LightGroups() {
   const [activeLight, setActiveLight] = useState<Light | null>(null);
+  const [newHs, setNewHs] = useState<{
+    hs: {
+      hue: number;
+      saturation: number;
+    };
+    from: string;
+  } | null>(null);
 
   return (
     <div
@@ -15,7 +22,9 @@ export default function LightGroups() {
       onClick={() => setActiveLight(null)}
     >
       <div className="flex flex-col gap-4">
-        <LightContext.Provider value={{ activeLight, setActiveLight }}>
+        <LightContext.Provider
+          value={{ activeLight, setActiveLight, newHs, setNewHs }}
+        >
           <Groups />
           <ExpandedLight />
         </LightContext.Provider>

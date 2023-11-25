@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function hsbkToHsl({
+export function hsbkToHs({
   hue,
   saturation,
   kelvin,
