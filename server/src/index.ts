@@ -1,9 +1,9 @@
-import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
-import https from "https";
-import { Power, type GroupInfo, type LightsResponse } from "./types";
-
 import { PrismaClient } from "@prisma/client";
+import { Elysia, t } from "elysia";
+import https from "https";
+
+import { Power, type GroupInfo, type LightsResponse } from "./types";
 
 const prisma = new PrismaClient();
 
@@ -51,16 +51,16 @@ const app = new Elysia()
   .post(
     "/lights/presets/add",
     async ({ body }) => {
-      prisma.preset.create({ data: body });
+      await prisma.preset.create({ data: body });
     },
     {
       body: t.Object({
         label: t.String(),
-        hue: t.Number(),
-        saturation: t.Number(),
-        lightness: t.Number(),
+        hue: t.Nullable(t.Number()),
+        saturation: t.Nullable(t.Number()),
+        lightness: t.Nullable(t.Number()),
         brightness: t.Number(),
-        kelvin: t.Number(),
+        kelvin: t.Nullable(t.Number()),
         colorRepresentation: t.String(),
       }),
     }
