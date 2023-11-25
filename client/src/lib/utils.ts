@@ -2,6 +2,8 @@ import clsx, { type ClassValue } from "clsx";
 import { clamp } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
+import type { LightConfigState } from "./types";
+
 export const url = "http://localhost:3000/lights";
 
 export function cn(...inputs: ClassValue[]) {
@@ -157,4 +159,19 @@ export function kelvinToHsl(kelvin: number) {
     interpolatedColor.g,
     interpolatedColor.b
   );
+}
+
+export function createColorBody({
+  hue,
+  saturation,
+  brightness,
+}: Pick<LightConfigState, "hue" | "saturation" | "brightness">) {
+  return `hue:${hue} saturation:${saturation} brightness:${brightness}`;
+}
+
+export function createWhiteBody({
+  kelvin,
+  brightness,
+}: Pick<LightConfigState, "kelvin" | "brightness">) {
+  return `kelvin:${kelvin} brightness:${brightness}`;
 }

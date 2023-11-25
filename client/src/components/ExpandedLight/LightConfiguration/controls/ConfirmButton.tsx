@@ -1,8 +1,7 @@
 import useActiveLight from "@/hooks/useActiveLight";
 import useSliderData from "@/hooks/useSliderData";
 import { setLightState } from "@/lib/elysia";
-import type { LightConfigState } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { cn, createColorBody, createWhiteBody } from "@/lib/utils";
 import { useState } from "react";
 
 export default function ConfirmButton() {
@@ -36,16 +35,4 @@ export default function ConfirmButton() {
       confirm
     </button>
   );
-}
-
-function createColorBody({
-  hue,
-  saturation,
-  brightness,
-}: LightConfigState) {
-  return `hue:${hue} saturation:${saturation} brightness:${brightness}`;
-}
-
-function createWhiteBody({ kelvin, brightness }: LightConfigState) {
-  return `kelvin:${kelvin} brightness:${brightness}`;
 }
