@@ -1,17 +1,16 @@
-import { useLightState } from "@/hooks/put";
 import useActiveLight from "@/hooks/useActiveLight";
 import useSlideData from "@/hooks/useSliderData";
+import { setLightState } from "@/lib/elysia";
 import type { LightConfigState } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 export default function ConfirmButton() {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const setLightState = useLightState();
   const { lightConfig, isColor } = useSlideData();
   const { activeLight } = useActiveLight();
   if (!activeLight) return null;
-  const handleClick = () => {
+  const handleClick = async () => {
     if (!isOnCooldown) {
       setIsOnCooldown(true);
       setLightState({

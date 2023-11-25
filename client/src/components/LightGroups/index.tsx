@@ -1,14 +1,15 @@
 import ExpandedLight from "@/components/ExpandedLight";
-import { useLightsData } from "@/hooks/get";
 import { LightContext } from "@/hooks/useActiveLight";
-import type { Light } from "@/lib/types";
+import { client } from "@/lib/elysia";
+import type { Light } from "@server/types";
 import { useState } from "react";
 
 import Groups from "./Groups";
 
+const { data } = await client.lights.get();
+
 export default function LightGroups() {
   const [activeLight, setActiveLight] = useState<Light | null>(null);
-  const { data } = useLightsData();
 
   if (!data) return null;
 

@@ -1,6 +1,6 @@
 import Switch from "@/components/styled/Switch";
-import { useToggle } from "@/hooks/post";
-import { Power } from "@/lib/types";
+import { togglePower } from "@/lib/elysia";
+import { Power } from "@server/types";
 import { motion } from "framer-motion";
 
 import { itemVariant } from "./utils";
@@ -14,7 +14,6 @@ export default function GroupCardHeader({
   name: string;
   power: Power;
 }) {
-  const togglePower = useToggle("group");
   return (
     <motion.div className="flex flex-row justify-between bg-slate-600 p-4 rounded-tl-md rounded-tr-md">
       <motion.h2
@@ -26,7 +25,7 @@ export default function GroupCardHeader({
       <Switch
         color={{ hue: 0, saturation: 0 }}
         power={power}
-        toggle={() => togglePower(groupName)}
+        toggle={() => togglePower("group:" + groupName)}
       />
     </motion.div>
   );

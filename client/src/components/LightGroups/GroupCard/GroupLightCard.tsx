@@ -1,8 +1,8 @@
 import Switch from "@/components/styled/Switch";
-import { useToggle } from "@/hooks/post";
 import useActiveLight from "@/hooks/useActiveLight";
-import type { Light } from "@/lib/types";
+import { togglePower } from "@/lib/elysia";
 import { cn, hsbkToHsl } from "@/lib/utils";
+import { Light } from "@server/types";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { itemVariant } from "./utils";
@@ -13,9 +13,8 @@ const expansion = {
   right: { x: 90 },
 };
 
-export function GroupCardLight({ light }: { light: Light }) {
+export function GroupLightCard({ light }: { light: Light }) {
   const { activeLight, setActiveLight } = useActiveLight();
-  const toggle = useToggle("id");
 
   return (
     <motion.div
@@ -60,7 +59,7 @@ export function GroupCardLight({ light }: { light: Light }) {
                 size="sm"
                 color={hsbkToHsl(light.color)}
                 power={light.power}
-                toggle={() => toggle(light.id)}
+                toggle={() => togglePower("id:" + light.id)}
               />
             </motion.div>
           </motion.div>

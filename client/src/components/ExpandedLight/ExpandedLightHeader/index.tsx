@@ -1,7 +1,7 @@
 import Switch from "@/components/styled/Switch";
-import { useToggle } from "@/hooks/post";
-import type { Light } from "@/lib/types";
+import { togglePower } from "@/lib/elysia";
 import { hsbkToHsl } from "@/lib/utils";
+import { Light } from "@server/types";
 import { motion } from "framer-motion";
 
 const expanded = {
@@ -11,8 +11,6 @@ const expanded = {
 };
 
 export default function ExpandedLightHeader({ light }: { light: Light }) {
-  const toggle = useToggle("id");
-
   return (
     <div className="w-full flex justify-between">
       <motion.h2
@@ -32,7 +30,7 @@ export default function ExpandedLightHeader({ light }: { light: Light }) {
         <Switch
           color={hsbkToHsl(light.color)}
           power={light.power}
-          toggle={() => toggle(light.id)}
+          toggle={() => togglePower("id:" + light.id)}
         />
       </motion.div>
     </div>

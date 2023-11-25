@@ -1,10 +1,10 @@
-import { LightsResult } from "@/lib/types";
+import type { GroupInfo } from "@server/types";
 import { Reorder } from "framer-motion";
 import { useState } from "react";
 
 import GroupCard from "./GroupCard";
 import GroupCardHeader from "./GroupCard/GroupCardHeader";
-import { GroupCardLight } from "./GroupCard/GroupCardLight";
+import { GroupLightCard } from "./GroupCard/GroupLightCard";
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -21,7 +21,7 @@ const container = {
 export default function Groups({
   iniitalItems,
 }: {
-  iniitalItems: Awaited<LightsResult>;
+  iniitalItems: GroupInfo[];
 }) {
   const [items, setItems] = useState(iniitalItems);
 
@@ -49,7 +49,7 @@ export default function Groups({
               />
             }
             lights={item.lights.map((light) => {
-              return <GroupCardLight key={light.id} light={light} />;
+              return <GroupLightCard key={light.id} light={light} />;
             })}
           />
         </Reorder.Item>

@@ -1,7 +1,7 @@
 import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
 import https from "https";
-import type { GroupInfo, LightsResponse } from "./types";
+import { Power, type GroupInfo, type LightsResponse } from "./types";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -34,7 +34,7 @@ const app = new Elysia()
       } else {
         groupOfLights.lights.push(light);
         if (light.power === "on" && groupOfLights.power === "off") {
-          groupOfLights.power = "on";
+          groupOfLights.power = Power.ON;
         }
       }
     }
@@ -65,10 +65,18 @@ const app = new Elysia()
       }),
     }
   )
-  .put("/lights/:id/state", async ({ body, params: { id } }) => {
-    const data = await setLightState(id, body as { color: string });
-    return data;
-  })
+  .put(
+    "/lights/:id/state",
+    async ({ body, params: { id } }) => {
+      const data = await setLightState(id, body);
+      return data;
+    },
+    {
+      body: t.Object({
+        color: t.String(),
+      }),
+    }
+  )
   .listen(3000);
 
 async function getAllLights(): LightsResponse {
@@ -175,3 +183,5 @@ async function setLightState(id: string, body: { color: string }) {
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 );
+
+export type App = typeof app;
