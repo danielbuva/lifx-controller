@@ -14,5 +14,5 @@
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["client/.eslintrc.cjs", "./prettier.config.mjs"]
+  "include": [".eslintrc.cjs", "./prettier.config.mjs"]
 }
