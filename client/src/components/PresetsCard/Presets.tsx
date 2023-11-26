@@ -1,9 +1,5 @@
 import useActiveLight from "@/hooks/useActiveLight";
-import {
-  deletePreset,
-  presets as presetData,
-  setLightState,
-} from "@/lib/elysia";
+import { deletePreset, setLightState } from "@/lib/elysia";
 import {
   cn,
   createColorBody,
