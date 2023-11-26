@@ -14,9 +14,11 @@ const config: Config = {
       },
       backgroundColor: {
         theme: "rgb(var(--background-end-rgb))",
+        inverseTheme: "rgb(var(--foreground-rgb))",
       },
       borderColor: {
         theme: "rgb(var(--background-end-rgb))",
+        inverseTheme: "rgb(var(--foreground-rgb))",
       },
       boxShadow: {
         theme: "var(--theme-shadow)",
