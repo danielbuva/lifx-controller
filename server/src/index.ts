@@ -44,8 +44,8 @@ const app = new Elysia()
   .get("/lights/presets", async () => {
     return prisma.preset.findMany();
   })
-  .post("/lights/:id/toggle", async ({ params }) => {
-    const data = await toggleLight(params.id);
+  .post("/lights/:id/toggle", async ({ params: { id } }) => {
+    const data = await toggleLight(id);
     return data;
   })
   .post(
@@ -78,6 +78,9 @@ const app = new Elysia()
       }),
     }
   )
+  .delete("/lights/presets/:id", async ({ params: { id } }) => {
+    await prisma.preset.delete({ where: { id: parseInt(id) } });
+  })
   .listen(3000);
 
 async function getAllLights(): LightsResponse {

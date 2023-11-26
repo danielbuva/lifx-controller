@@ -28,4 +28,6 @@ export interface GroupInfo {
   power: Power;
 }
 
-export type Preset = Omit<dbPreset, "id">;
+export type PresetWithoutId = Omit<dbPreset, "id">;
+
+export type Preset = dbPreset;

@@ -1,6 +1,6 @@
 import { edenTreaty } from "@elysiajs/eden";
 import type { App } from "@server/index";
-import { Power, type Preset } from "@server/types";
+import { Power, type PresetWithoutId } from "@server/types";
 
 export const client = edenTreaty<App>("http://localhost:3000");
 
@@ -18,8 +18,12 @@ export async function setLightState({
   await client.lights["id:" + id]?.state.put({ power: Power.ON, color });
 }
 
-export async function addPreset(preset: Preset) {
+export async function addPreset(preset: PresetWithoutId) {
   await client.lights.presets.add.post(preset);
+}
+
+export async function deletePreset(id: number) {
+  await client.lights.presets[id]?.delete();
 }
 
 export const { data: presets } = await client.lights.presets.get();

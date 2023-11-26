@@ -1,4 +1,4 @@
-import type { Light } from "@server/types";
+import type { Light, Preset } from "@server/types";
 import {
   type Dispatch,
   type SetStateAction,
@@ -25,6 +25,8 @@ export const LightContext = createContext<{
       from: string;
     } | null>
   >;
+  presets: Preset[] | null;
+  setPresets: Dispatch<SetStateAction<Preset[] | null>>;
 } | null>(null);
 
 export default function useActiveLight() {

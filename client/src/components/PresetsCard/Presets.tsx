@@ -1,5 +1,9 @@
 import useActiveLight from "@/hooks/useActiveLight";
-import { presets, setLightState } from "@/lib/elysia";
+import {
+  deletePreset,
+  presets as presetData,
+  setLightState,
+} from "@/lib/elysia";
 import {
   cn,
   createColorBody,
@@ -13,15 +17,13 @@ import Preset from "./Preset";
 
 export default function Presets({ id }: { id?: string }) {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const { setNewHs } = useActiveLight();
+  const { setNewHs, presets, setPresets } = useActiveLight();
+
   if (!presets || presets.length === 0) return null;
-  let presetsToShow = presets;
-  if (id) {
-    presetsToShow = presetsToShow.filter(
-      (preset) => preset.lightId === id
-    );
-  }
-  if (presetsToShow.length === 0) return null;
+
+  const presetsToShow = id
+    ? presets.filter((p) => p.lightId === id)
+    : presets;
 
   const handleClick = async (
     kelvin: number | null,
@@ -58,6 +60,11 @@ export default function Presets({ id }: { id?: string }) {
     }
   };
 
+  const handleDelete = async (id: number) => {
+    await deletePreset(id);
+    setPresets(presets.filter((p) => p.id !== id));
+  };
+
   return (
     <div
       className={cn(
@@ -70,6 +77,7 @@ export default function Presets({ id }: { id?: string }) {
           key={preset.id}
           {...preset}
           handleClick={handleClick}
+          handleDelete={handleDelete}
           isOnCooldown={isOnCooldown}
         />
       ))}
