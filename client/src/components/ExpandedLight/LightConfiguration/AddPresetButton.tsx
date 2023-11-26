@@ -6,11 +6,12 @@ import { useState } from "react";
 export default function AddPresetButton() {
   const [label, setLabel] = useState("");
   const { lightConfig, isColor } = useSliderData();
-  const { activeLight } = useActiveLight();
+  const { activeLight, setPresets } = useActiveLight();
   const handleClick = async () => {
     if (!activeLight || !label) return null;
+    let presetId: number | null;
     if (isColor) {
-      await addPreset({
+      presetId = await addPreset({
         lightId: activeLight.id,
         label,
         hue: lightConfig.hue,
@@ -20,7 +21,7 @@ export default function AddPresetButton() {
         kelvin: null,
       });
     } else {
-      await addPreset({
+      presetId = await addPreset({
         lightId: activeLight.id,
         label,
         hue: null,
@@ -28,6 +29,37 @@ export default function AddPresetButton() {
         lightness: lightConfig.lightness,
         brightness: lightConfig.brightness,
         kelvin: lightConfig.kelvin,
+      });
+    }
+    if (presetId != null) {
+      setPresets((prev) => {
+        if (prev) {
+          return [
+            ...prev,
+            {
+              id: presetId as number,
+              lightId: activeLight.id,
+              label,
+              hue: lightConfig.hue,
+              saturation: lightConfig.saturation,
+              lightness: lightConfig.lightness,
+              brightness: lightConfig.brightness,
+              kelvin: null,
+            },
+          ];
+        }
+        return [
+          {
+            id: presetId as number,
+            lightId: activeLight.id,
+            label,
+            hue: lightConfig.hue,
+            saturation: lightConfig.saturation,
+            lightness: lightConfig.lightness,
+            brightness: lightConfig.brightness,
+            kelvin: null,
+          },
+        ];
       });
     }
   };

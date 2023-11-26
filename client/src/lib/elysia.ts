@@ -19,7 +19,7 @@ export async function setLightState({
 }
 
 export async function addPreset(preset: PresetWithoutId) {
-  await client.lights.presets.add.post(preset);
+  return (await client.lights.presets.add.post(preset)).data;
 }
 
 export async function deletePreset(id: number) {

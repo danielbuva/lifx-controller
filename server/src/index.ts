@@ -51,7 +51,8 @@ const app = new Elysia()
   .post(
     "/lights/presets/add",
     async ({ body }) => {
-      await prisma.preset.create({ data: body });
+      const newPreset = await prisma.preset.create({ data: body });
+      return newPreset.id;
     },
     {
       body: t.Object({
