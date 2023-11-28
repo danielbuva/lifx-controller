@@ -17,7 +17,7 @@ export default function Presets({ id }: { id?: string }) {
     ? presets.filter((p) => p.lightId === id)
     : presets;
 
-  const handleClick = async (
+  const activatePreset = async (
     kelvin: number | null,
     lightId: string,
     brightness: number,
@@ -26,31 +26,32 @@ export default function Presets({ id }: { id?: string }) {
     hue: number | null,
     groupId: string
   ) => {
-    if (!isOnCooldown) {
-      setIsOnCooldown(true);
-      if (kelvin) {
-        await setHslbk({
-          hslbk: { ...kelvinToHsl(kelvin), brightness, kelvin },
-          groupId,
-          lightId,
-          isColor: false,
-        });
-      } else if (hue != null && saturation != null) {
-        await setHslbk({
-          hslbk: {
-            hue,
-            saturation,
-            lightness: lightness ?? 50,
-            brightness,
-            kelvin: 1500,
-          },
-          groupId,
-          lightId,
-          isColor: true,
-        });
-      }
-      setTimeout(() => setIsOnCooldown(false), 1000);
+    if (isOnCooldown) return;
+    setIsOnCooldown(true);
+
+    if (kelvin) {
+      await setHslbk({
+        hslbk: { ...kelvinToHsl(kelvin), brightness, kelvin },
+        groupId,
+        lightId,
+        isColor: false,
+      });
+    } else if (hue != null && saturation != null) {
+      await setHslbk({
+        hslbk: {
+          hue,
+          saturation,
+          lightness: lightness ?? 50,
+          brightness,
+          kelvin: 1500,
+        },
+        groupId,
+        lightId,
+        isColor: true,
+      });
     }
+
+    setTimeout(() => setIsOnCooldown(false), 1000);
   };
 
   const handleDelete = async (id: number) => {
@@ -69,7 +70,7 @@ export default function Presets({ id }: { id?: string }) {
         <Preset
           key={preset.id}
           {...preset}
-          handleClick={handleClick}
+          handleClick={activatePreset}
           handleDelete={handleDelete}
           isOnCooldown={isOnCooldown}
         />
