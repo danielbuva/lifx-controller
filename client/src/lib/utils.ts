@@ -13,30 +13,16 @@ export function cn(...inputs: ClassValue[]) {
 export function hsbkToHsl({
   hue,
   saturation,
+  lightness,
   kelvin,
 }: {
   hue: number;
   saturation: number;
+  lightness?: number;
   kelvin: number;
-}) {
-  saturation *= 100;
-  if (saturation === 0) {
-    // when saturation is zero, adjust hue based on kelvin
-    const kelvinMin = 1500,
-      kelvinMax = 9000;
-    const kelvinRange = kelvinMax - kelvinMin;
-
-    // normalize kelvin value to [0, 1]
-    const normalizedKelvin = (kelvin - kelvinMin) / kelvinRange;
-
-    // map kelvin to a hue value from orange (30) to blue (240)
-    hue = 30 + normalizedKelvin * (240 - 30);
-
-    // set saturation to a default value for visibility
-    saturation = 80;
-  }
-
-  return { hue, saturation, lightness: 50 };
+}): HSL {
+  if (saturation === 0) return kelvinToHsl(kelvin);
+  return { hue, saturation: saturation * 100, lightness: lightness ?? 50 };
 }
 
 export function normalizeFrom176(
@@ -90,7 +76,7 @@ export function rgbToHsl(r: number, g: number, b: number): HSL {
     h /= 6;
   }
 
-  return { hue: h * 360, saturation: s, lightness: l * 100 };
+  return { hue: h * 360, saturation: s + 10, lightness: l * 100 };
 }
 
 function interpolateComponent(
