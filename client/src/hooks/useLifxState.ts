@@ -20,7 +20,7 @@ export default function useLifxState() {
   const context = useContext(LifxStateContext);
   if (!context) {
     throw new Error(
-      "LifxState.* component must rendered as a child of Lifx provider component"
+      "LifxState.* component must be rendered as a child of Lifx provider component"
     );
   }
   return context;
