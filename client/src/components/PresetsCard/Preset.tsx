@@ -4,12 +4,12 @@ import type { Preset } from "@server/types";
 export default function Preset(
   props: Preset & {
     handleClick: (
+      hue: number | null,
+      saturation: number | null,
+      lightness: number | null,
+      brightness: number,
       kelvin: number | null,
       lightId: string,
-      brightness: number,
-      lightness: number | null,
-      saturation: number | null,
-      hue: number | null,
       groupId: string
     ) => Promise<void>;
     handleDelete: (id: number) => Promise<void>;
@@ -37,12 +37,12 @@ export default function Preset(
       }}
       onClick={async () =>
         props.handleClick(
+          props.hue,
+          props.saturation,
+          props.lightness,
+          props.brightness,
           props.kelvin,
           props.lightId,
-          props.brightness,
-          props.lightness,
-          props.saturation,
-          props.hue,
           props.groupId
         )
       }

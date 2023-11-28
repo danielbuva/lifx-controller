@@ -22,12 +22,12 @@ export default function Presets({ id }: { id?: string }) {
     : presets;
 
   const activatePreset = async (
+    hue: number | null,
+    saturation: number | null,
+    lightness: number | null,
+    brightness: number,
     kelvin: number | null,
     lightId: string,
-    brightness: number,
-    lightness: number | null,
-    saturation: number | null,
-    hue: number | null,
     groupId: string
   ) => {
     if (isOnCooldown) return;
