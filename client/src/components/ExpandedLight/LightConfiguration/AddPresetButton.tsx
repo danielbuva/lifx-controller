@@ -1,4 +1,5 @@
 import useActiveLight from "@/hooks/useActiveLight";
+import usePresets from "@/hooks/usePresets";
 import useSliderData from "@/hooks/useSliderData";
 import { addPreset } from "@/lib/elysia";
 import { useState } from "react";
@@ -6,7 +7,8 @@ import { useState } from "react";
 export default function AddPresetButton() {
   const [label, setLabel] = useState("");
   const { lightConfig, isColor } = useSliderData();
-  const { activeLight, setPresets } = useActiveLight();
+  const { activeLight } = useActiveLight();
+  const { setPresets } = usePresets();
   const handleClick = async () => {
     if (!activeLight || !label) return null;
     let presetId: number | null;

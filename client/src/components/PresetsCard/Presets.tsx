@@ -1,5 +1,6 @@
 import useActiveLight from "@/hooks/useActiveLight";
 import useLifxState from "@/hooks/useLifxState";
+import usePresets from "@/hooks/usePresets";
 import { deletePreset } from "@/lib/elysia";
 import { cn, kelvinToHsl } from "@/lib/utils";
 import { Power } from "@server/types";
@@ -9,8 +10,9 @@ import Preset from "./Preset";
 
 export default function Presets({ id }: { id?: string }) {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const { presets, setPresets, setActiveLight } = useActiveLight();
+  const { setActiveLight } = useActiveLight();
   const { setHslbk } = useLifxState();
+  const { presets, setPresets } = usePresets();
 
   if (!presets || presets.length === 0) return null;
 

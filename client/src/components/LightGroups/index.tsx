@@ -1,8 +1,7 @@
 import ExpandedLight from "@/components/ExpandedLight";
 import PresetsCard from "@/components/PresetsCard";
+import PresetsProvider from "@/components/wrappers/PresetsProvider";
 import { LightContext } from "@/hooks/useActiveLight";
-import { presets as presetData } from "@/lib/elysia";
-import type { Preset } from "@server/types";
 import { type Light } from "@server/types";
 import { useState } from "react";
 
@@ -10,7 +9,6 @@ import Groups from "./Groups";
 
 export default function LightGroups() {
   const [activeLight, setActiveLight] = useState<Light | null>(null);
-  const [presets, setPresets] = useState<Preset[] | null>(presetData);
 
   return (
     <div
@@ -22,13 +20,13 @@ export default function LightGroups() {
           value={{
             activeLight,
             setActiveLight,
-            presets,
-            setPresets,
           }}
         >
           <Groups />
-          <ExpandedLight />
-          <PresetsCard />
+          <PresetsProvider>
+            <ExpandedLight />
+            <PresetsCard />
+          </PresetsProvider>
         </LightContext.Provider>
       </div>
     </div>
