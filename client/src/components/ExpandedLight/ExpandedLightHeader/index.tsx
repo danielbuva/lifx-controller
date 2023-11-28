@@ -32,7 +32,7 @@ export default function ExpandedLightHeader({ light }: { light: Light }) {
         variants={expanded}
       >
         <Switch
-          color={hsbkToHsl(light.color)}
+          hsl={hsbkToHsl(light.color)}
           power={light.power}
           toggle={async () => {
             setActiveLight((prev) => {

@@ -21,7 +21,7 @@ export default function GroupCardHeader({
         {name}
       </motion.h2>
       <Switch
-        color={{ hue: 0, saturation: 0, lightness: 50 }}
+        hsl={{ hue: 0, saturation: 0, lightness: 50 }}
         power={power}
         toggle={() => togglePower("group:" + name)}
       />

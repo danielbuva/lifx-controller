@@ -58,7 +58,7 @@ export function GroupLightCard({ light }: { light: Light }) {
             >
               <Switch
                 size="sm"
-                color={hsbkToHsl(light.color)}
+                hsl={hsbkToHsl(light.color)}
                 power={light.power}
                 toggle={async () =>
                   toggleSwitch({

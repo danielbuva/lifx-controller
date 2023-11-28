@@ -1,16 +1,17 @@
 import { itemVariant } from "@/components/LightGroups/GroupCard/utils";
+import type { HSL } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import type { Power } from "@server/types";
 import { motion } from "framer-motion";
 import { type MouseEvent, useState } from "react";
 
 export default function Switch({
-  color: { hue, saturation, lightness },
+  hsl: { hue, saturation, lightness },
   size = "md",
   power,
   toggle,
 }: {
-  color: { hue: number; saturation: number; lightness: number };
+  hsl: HSL;
   size?: "sm" | "md";
   power: Power;
   toggle: () => Promise<void>;
