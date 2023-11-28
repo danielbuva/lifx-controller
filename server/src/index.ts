@@ -68,6 +68,7 @@ const app = new Elysia()
     {
       body: t.Object({
         lightId: t.String(),
+        groupId: t.String(),
         label: t.String(),
         hue: t.Nullable(t.Number()),
         saturation: t.Nullable(t.Number()),
