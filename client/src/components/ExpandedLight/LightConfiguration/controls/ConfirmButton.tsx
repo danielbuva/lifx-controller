@@ -17,6 +17,8 @@ export default function ConfirmButton() {
       if (prev) {
         return {
           ...prev,
+          color: lightConfig,
+          lightness: lightConfig.lightness,
           power: Power.ON,
         };
       }
