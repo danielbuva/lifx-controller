@@ -34,6 +34,7 @@ export default function Preset({
   } else {
     backgroundColor = `hsl(${hue}, ${saturation! * 100}%, ${lightness}%)`;
   }
+
   return (
     <div
       className={cn(
