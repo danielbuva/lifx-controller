@@ -1,16 +1,13 @@
-import useActiveLight from "@/hooks/useActiveLight";
 import useLifxState from "@/hooks/useLifxState";
 import usePresets from "@/hooks/usePresets";
 import { deletePreset } from "@/lib/elysia";
 import { cn, kelvinToHsl } from "@/lib/utils";
-import { Power } from "@server/types";
 import { useState } from "react";
 
 import Preset from "./Preset";
 
 export default function Presets({ id }: { id?: string }) {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const { setActiveLight } = useActiveLight();
   const { setHslbk } = useLifxState();
   const { presets, setPresets } = usePresets();
 
@@ -29,23 +26,6 @@ export default function Presets({ id }: { id?: string }) {
     hue: number | null,
     groupId: string
   ) => {
-    setActiveLight((prev) => {
-      if (prev) {
-        const newState = { ...prev };
-        newState.brightness = brightness;
-        if (kelvin) {
-          const { hue, saturation, lightness } = kelvinToHsl(kelvin);
-          newState.color = { hue, saturation, kelvin };
-          newState.lightness = lightness;
-        } else if (hue != null && saturation != null) {
-          newState.color = { hue, saturation, kelvin: 1500 };
-          newState.lightness = lightness ?? 50;
-        }
-        newState.power = Power.ON;
-        return newState;
-      }
-      return null;
-    });
     if (!isOnCooldown) {
       setIsOnCooldown(true);
       if (kelvin) {

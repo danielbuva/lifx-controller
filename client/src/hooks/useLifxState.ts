@@ -1,5 +1,6 @@
 import type { HSLBK } from "@/lib/types";
 import type { Group } from "@server/types";
+import type { Dispatch, SetStateAction } from "react";
 import { createContext, useContext } from "react";
 
 export const LifxStateContext = createContext<{
@@ -14,6 +15,10 @@ export const LifxStateContext = createContext<{
     groupId: string;
     lightId: string;
   }) => Promise<void>;
+  activeLightIndices: { groupI: number; lightI: number } | null;
+  setActiveLightIndices: Dispatch<
+    SetStateAction<{ groupI: number; lightI: number } | null>
+  >;
 } | null>(null);
 
 export default function useLifxState() {

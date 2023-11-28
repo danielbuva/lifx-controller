@@ -4,7 +4,7 @@ import type { HSLBK } from "@/lib/types";
 import { createColorBody, createWhiteBody } from "@/lib/utils";
 import { Power, type Group } from "@server/types";
 import type { ReactNode } from "react";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 
 type SetSwitchState = {
   type: "set hslbk";
@@ -31,6 +31,10 @@ export default function LifxStateProvider({
   children: ReactNode;
 }) {
   const [lifxState, dispatchLifx] = useReducer(lifxReducer, lights ?? []);
+  const [activeLightIndices, setActiveLightIndices] = useState<{
+    groupI: number;
+    lightI: number;
+  } | null>(null);
 
   const toggleSwitch = async ({
     type,
@@ -75,6 +79,8 @@ export default function LifxStateProvider({
         lifxState,
         setHslbk,
         toggleSwitch,
+        activeLightIndices,
+        setActiveLightIndices,
       }}
     >
       {children}

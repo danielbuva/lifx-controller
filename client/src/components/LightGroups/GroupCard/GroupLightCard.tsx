@@ -13,9 +13,17 @@ const expansion = {
   right: { x: 90 },
 };
 
-export function GroupLightCard({ light }: { light: Light }) {
-  const { activeLight, setActiveLight } = useActiveLight();
-  const { toggleSwitch } = useLifxState();
+export function GroupLightCard({
+  light,
+  groupIndex,
+  lightIndex,
+}: {
+  light: Light;
+  groupIndex: number;
+  lightIndex: number;
+}) {
+  const { toggleSwitch, setActiveLightIndices } = useLifxState();
+  const activeLight = useActiveLight();
 
   return (
     <motion.div
@@ -38,7 +46,10 @@ export function GroupLightCard({ light }: { light: Light }) {
             )}
             layout
             onClick={() => {
-              setActiveLight(light);
+              setActiveLightIndices({
+                groupI: groupIndex,
+                lightI: lightIndex,
+              });
             }}
           >
             <motion.p

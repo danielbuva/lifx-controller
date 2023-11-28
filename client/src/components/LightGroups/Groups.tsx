@@ -9,14 +9,19 @@ export default function Groups() {
 
   return (
     <div className="flex gap-4">
-      {lifxState.map((group) => (
+      {lifxState.map((group, groupIndex) => (
         <GroupCard
           key={group.groupId}
           header={
             <GroupCardHeader name={group.groupName} power={group.power} />
           }
-          lights={group.lights.map((light) => (
-            <GroupLightCard key={light.id} light={light} />
+          lights={group.lights.map((light, lightIndex) => (
+            <GroupLightCard
+              key={light.id}
+              light={light}
+              groupIndex={groupIndex}
+              lightIndex={lightIndex}
+            />
           ))}
         />
       ))}

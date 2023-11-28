@@ -1,8 +1,7 @@
 import Switch from "@/components/styled/Switch";
-import useActiveLight from "@/hooks/useActiveLight";
 import useLifxState from "@/hooks/useLifxState";
 import { hsbkToHsl } from "@/lib/utils";
-import { Power, type Light } from "@server/types";
+import { type Light } from "@server/types";
 import { motion } from "framer-motion";
 
 const expanded = {
@@ -13,7 +12,6 @@ const expanded = {
 
 export default function ExpandedLightHeader({ light }: { light: Light }) {
   const { toggleSwitch } = useLifxState();
-  const { setActiveLight } = useActiveLight();
 
   return (
     <div className="w-full flex justify-between">
@@ -35,15 +33,6 @@ export default function ExpandedLightHeader({ light }: { light: Light }) {
           hsl={hsbkToHsl(light.color)}
           power={light.power}
           toggle={async () => {
-            setActiveLight((prev) => {
-              if (prev) {
-                return {
-                  ...prev,
-                  power: prev.power === Power.ON ? Power.OFF : Power.ON,
-                };
-              }
-              return prev;
-            });
             await toggleSwitch({
               type: "light",
               groupId: light.group.id,

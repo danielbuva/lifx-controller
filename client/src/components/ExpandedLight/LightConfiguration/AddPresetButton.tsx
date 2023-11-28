@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function AddPresetButton() {
   const [label, setLabel] = useState("");
   const { lightConfig, isColor } = useSliderData();
-  const { activeLight } = useActiveLight();
+  const activeLight = useActiveLight();
   const { setPresets } = usePresets();
   const handleClick = async () => {
     if (!activeLight || !label) return null;

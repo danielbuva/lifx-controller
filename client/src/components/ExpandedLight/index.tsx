@@ -5,8 +5,7 @@ import ExpandedLightHeader from "./ExpandedLightHeader";
 import LightConfiguration from "./LightConfiguration";
 
 export default function ExpandedLight() {
-  const { activeLight } = useActiveLight();
-
+  const activeLight = useActiveLight();
   return (
     <AnimatePresence mode="wait">
       {activeLight && (
