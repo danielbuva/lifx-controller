@@ -5,7 +5,7 @@ import PresetsProvider from "@/components/wrappers/PresetsProvider";
 
 import Groups from "./Groups";
 
-export default function LightGroups() {
+export default function LifxRemote() {
   return (
     <Layout>
       <Groups />
