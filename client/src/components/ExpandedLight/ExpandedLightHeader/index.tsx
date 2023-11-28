@@ -1,4 +1,4 @@
-import Switch from "@/components/styled/Switch";
+import Switch from "@/components/Switch";
 import useLifxState from "@/hooks/useLifxState";
 import { hslkToHsl } from "@/lib/utils";
 import { type Light } from "@server/types";

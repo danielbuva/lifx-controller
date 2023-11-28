@@ -1,4 +1,4 @@
-import Switch from "@/components/styled/Switch";
+import Switch from "@/components/Switch";
 import useActiveLight from "@/hooks/useActiveLight";
 import useLifxState from "@/hooks/useLifxState";
 import { cn, hslkToHsl } from "@/lib/utils";

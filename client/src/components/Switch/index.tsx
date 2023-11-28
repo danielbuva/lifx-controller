@@ -26,6 +26,7 @@ export default function Switch({
       setTimeout(() => setIsOnCooldown(false), 1000);
     }
   };
+
   return (
     <motion.div
       className={cn(
