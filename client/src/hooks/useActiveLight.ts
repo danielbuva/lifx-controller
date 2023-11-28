@@ -9,22 +9,6 @@ import {
 export const LightContext = createContext<{
   activeLight: Light | null;
   setActiveLight: Dispatch<SetStateAction<Light | null>>;
-  newHs: {
-    hs: {
-      hue: number;
-      saturation: number;
-    };
-    from: string;
-  } | null;
-  setNewHs: Dispatch<
-    SetStateAction<{
-      hs: {
-        hue: number;
-        saturation: number;
-      };
-      from: string;
-    } | null>
-  >;
   presets: Preset[] | null;
   setPresets: Dispatch<SetStateAction<Preset[] | null>>;
 } | null>(null);

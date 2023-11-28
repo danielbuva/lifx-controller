@@ -1,9 +1,10 @@
+import { kelvinToHsl } from "@client/lib/utils";
 import { cors } from "@elysiajs/cors";
 import { PrismaClient } from "@prisma/client";
 import { Elysia, t } from "elysia";
 import https from "https";
 
-import { Power, type GroupInfo, type LightsResponse } from "./types";
+import { Power, type Group, type LightsResponse } from "./types";
 
 const prisma = new PrismaClient();
 
@@ -18,9 +19,19 @@ const app = new Elysia()
   })
   .get("/lights", async () => {
     const data = await getAllLights();
-    const groupedLights: { [key: string]: GroupInfo } = {};
+    const groupedLights: { [key: string]: Group } = {};
 
     for (const light of data) {
+      if (light.color.saturation === 0) {
+        const { hue, saturation, lightness } = kelvinToHsl(
+          light.color.kelvin
+        );
+        light.color.hue = hue;
+        light.color.saturation = saturation;
+        light.lightness = lightness;
+      } else {
+        light.lightness = 50;
+      }
       const groupName = light.group.name;
       const groupOfLights = groupedLights[groupName];
 

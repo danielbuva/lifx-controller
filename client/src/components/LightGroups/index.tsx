@@ -10,13 +10,6 @@ import Groups from "./Groups";
 
 export default function LightGroups() {
   const [activeLight, setActiveLight] = useState<Light | null>(null);
-  const [newHs, setNewHs] = useState<{
-    hs: {
-      hue: number;
-      saturation: number;
-    };
-    from: string;
-  } | null>(null);
   const [presets, setPresets] = useState<Preset[] | null>(presetData);
 
   return (
@@ -29,8 +22,6 @@ export default function LightGroups() {
           value={{
             activeLight,
             setActiveLight,
-            newHs,
-            setNewHs,
             presets,
             setPresets,
           }}

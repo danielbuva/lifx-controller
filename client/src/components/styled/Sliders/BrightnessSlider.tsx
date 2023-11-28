@@ -28,7 +28,7 @@ export default function BrightnessSlider() {
   if (isColor) {
     hsl = `hsl(${lightConfig.hue}, ${lightConfig.saturation * 100}%, 50%)`;
   } else {
-    const [hue, saturation, lightness] = kelvinToHsl(lightConfig.kelvin);
+    const { hue, saturation, lightness } = kelvinToHsl(lightConfig.kelvin);
     hsl = `hsl(${hue}, ${saturation * 100}%, ${lightness}%)`;
   }
 

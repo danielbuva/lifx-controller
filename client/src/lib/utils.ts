@@ -2,7 +2,7 @@ import clsx, { type ClassValue } from "clsx";
 import { clamp } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 
-import type { LightConfigState } from "./types";
+import type { HSL, LightConfigState } from "./types";
 
 export const url = "http://localhost:3000/lights";
 
@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function hsbkToHs({
+export function hsbkToHsl({
   hue,
   saturation,
   kelvin,
@@ -36,7 +36,7 @@ export function hsbkToHs({
     saturation = 80;
   }
 
-  return { hue, saturation };
+  return { hue, saturation, lightness: 50 };
 }
 
 export function normalizeFrom176(
@@ -63,11 +63,7 @@ export function normalize(
   );
 }
 
-export function rgbToHsl(
-  r: number,
-  g: number,
-  b: number
-): [number, number, number] {
+export function rgbToHsl(r: number, g: number, b: number): HSL {
   (r /= 255), (g /= 255), (b /= 255);
   const max = Math.max(r, g, b),
     min = Math.min(r, g, b);
@@ -94,7 +90,7 @@ export function rgbToHsl(
     h /= 6;
   }
 
-  return [h * 360, s, l * 100];
+  return { hue: h * 360, saturation: s, lightness: l * 100 };
 }
 
 function interpolateComponent(
@@ -121,9 +117,7 @@ function interpolateColor(colorStart: RGB, colorEnd: RGB, factor: number) {
   };
 }
 
-export function getHslAtPosition(
-  mouseX: number
-): [number, number, number] {
+export function getHslAtPosition(mouseX: number): HSL {
   // Define the start and end colors in RGB
   const colorStart = { r: 240, g: 162, b: 114 };
   const colorEnd = { r: 224, g: 228, b: 255 };

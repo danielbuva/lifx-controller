@@ -13,7 +13,9 @@ import WhiteControls from "./controls/WhiteControls";
 export default function LightConfiguration({ light }: { light: Light }) {
   const [isColor, setIsColor] = useState(light.color.saturation !== 0);
   const [lightConfig, setLightConfig] = useState<LightConfigState>({
-    ...light.color,
+    hue: light.color.hue,
+    saturation: light.color.saturation,
+    kelvin: light.color.kelvin,
     brightness: light.brightness,
     lightness: 50,
   });

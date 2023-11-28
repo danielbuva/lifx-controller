@@ -1,4 +1,4 @@
-import type { LightConfigState } from "@/lib/types";
+import type { HSLBK, LightConfigState } from "@/lib/types";
 import {
   type Dispatch,
   type SetStateAction,
@@ -8,13 +8,7 @@ import {
 
 export const SliderContext = createContext<{
   isColor: boolean;
-  lightConfig: {
-    hue: number;
-    brightness: number;
-    saturation: number;
-    lightness: number;
-    kelvin: number;
-  };
+  lightConfig: HSLBK;
   setLightConfig: Dispatch<SetStateAction<LightConfigState>>;
 } | null>(null);
 

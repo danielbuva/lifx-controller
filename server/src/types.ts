@@ -8,6 +8,7 @@ export enum Power {
 export type Light = {
   brightness: number;
   color: { hue: number; saturation: number; kelvin: number };
+  lightness: number;
   connected: boolean;
   effect: string;
   group: { id: string; name: string };
@@ -21,7 +22,7 @@ export type Light = {
 };
 
 export type LightsResponse = Promise<Light[]>;
-export interface GroupInfo {
+export interface Group {
   groupName: string;
   groupId: string;
   lights: Light[];

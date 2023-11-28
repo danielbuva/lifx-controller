@@ -1,5 +1,10 @@
 import LightGroups from "./components/LightGroups";
+import LifxStateProvider from "./components/wrappers/LifxStateProvider";
 
 export default function App() {
-  return <LightGroups />;
+  return (
+    <LifxStateProvider>
+      <LightGroups />
+    </LifxStateProvider>
+  );
 }

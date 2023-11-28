@@ -1,19 +1,15 @@
 import useActiveLight from "@/hooks/useActiveLight";
-import { deletePreset, setLightState } from "@/lib/elysia";
-import {
-  cn,
-  createColorBody,
-  createWhiteBody,
-  hsbkToHs,
-  kelvinToHsl,
-} from "@/lib/utils";
+import useLifxState from "@/hooks/useLifxState";
+import { deletePreset } from "@/lib/elysia";
+import { cn, kelvinToHsl } from "@/lib/utils";
 import { useState } from "react";
 
 import Preset from "./Preset";
 
 export default function Presets({ id }: { id?: string }) {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const { setNewHs, presets, setPresets } = useActiveLight();
+  const { presets, setPresets } = useActiveLight();
+  const { setHslbk } = useLifxState();
 
   if (!presets || presets.length === 0) return null;
 
@@ -25,29 +21,31 @@ export default function Presets({ id }: { id?: string }) {
     kelvin: number | null,
     lightId: string,
     brightness: number,
+    lightness: number | null,
     saturation: number | null,
-    hue: number | null
+    hue: number | null,
+    groupId: string
   ) => {
+    lightness;
     if (!isOnCooldown) {
       setIsOnCooldown(true);
       if (kelvin) {
-        const [hue, saturation] = kelvinToHsl(kelvin);
-        setNewHs({
-          hs: hsbkToHs({ hue, saturation: saturation * 1.8, kelvin }),
-          from: lightId,
-        });
-        await setLightState({
-          id: lightId,
-          color: createWhiteBody({ kelvin, brightness }),
+        await setHslbk({
+          hslbk: { ...kelvinToHsl(kelvin), brightness, kelvin },
+          groupId,
+          lightId,
         });
       } else if (hue != null && saturation != null) {
-        setNewHs({
-          hs: { hue, saturation: saturation * 100 },
-          from: lightId,
-        });
-        await setLightState({
-          id: lightId,
-          color: createColorBody({ hue, saturation, brightness }),
+        await setHslbk({
+          hslbk: {
+            hue,
+            saturation,
+            lightness: 50,
+            brightness,
+            kelvin: 1500,
+          },
+          groupId,
+          lightId,
         });
       }
       setTimeout(() => {

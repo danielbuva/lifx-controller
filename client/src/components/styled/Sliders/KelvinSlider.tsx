@@ -18,13 +18,10 @@ export default function KelvinSlider() {
 
   const handleDrag = (e: MouseEvent) => {
     const pointerPosition = clamp(0, 176, getPosition(e.pageX));
-    const [hue, saturation, lightness] = getHslAtPosition(pointerPosition);
     setLightConfig({
       ...lightConfig,
-      hue,
+      ...getHslAtPosition(pointerPosition),
       kelvin: normalizeFrom176(1500, 9000, pointerPosition),
-      saturation,
-      lightness,
     });
   };
 
@@ -35,13 +32,10 @@ export default function KelvinSlider() {
 
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     const pointerPosition = getPosition(e.pageX);
-    const [hue, saturation, lightness] = getHslAtPosition(pointerPosition);
     setLightConfig({
       ...lightConfig,
-      hue,
+      ...getHslAtPosition(pointerPosition),
       kelvin: normalizeFrom176(1500, 9000, pointerPosition),
-      saturation,
-      lightness,
     });
 
     // need global mouseup to remove listener even when

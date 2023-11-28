@@ -1,7 +1,7 @@
 import Switch from "@/components/styled/Switch";
 import useActiveLight from "@/hooks/useActiveLight";
-import { togglePower } from "@/lib/elysia";
-import { cn, hsbkToHs } from "@/lib/utils";
+import useLifxState from "@/hooks/useLifxState";
+import { cn, hsbkToHsl } from "@/lib/utils";
 import type { Light } from "@server/types";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -14,9 +14,8 @@ const expansion = {
 };
 
 export function GroupLightCard({ light }: { light: Light }) {
-  const { activeLight, setActiveLight, newHs } = useActiveLight();
-
-  const shouldChangeColor = newHs && newHs.from === light.id;
+  const { activeLight, setActiveLight } = useActiveLight();
+  const { toggleSwitch } = useLifxState();
 
   return (
     <motion.div
@@ -59,11 +58,15 @@ export function GroupLightCard({ light }: { light: Light }) {
             >
               <Switch
                 size="sm"
-                color={
-                  shouldChangeColor ? newHs.hs : hsbkToHs(light.color)
-                }
+                color={hsbkToHsl(light.color)}
                 power={light.power}
-                toggle={() => togglePower("id:" + light.id)}
+                toggle={async () =>
+                  toggleSwitch({
+                    type: "light",
+                    groupId: light.group.id,
+                    lightId: light.id,
+                  })
+                }
               />
             </motion.div>
           </motion.div>

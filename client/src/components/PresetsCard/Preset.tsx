@@ -13,20 +13,23 @@ export default function Preset({
   handleClick,
   handleDelete,
   isOnCooldown,
+  groupId,
 }: Preset & {
   handleClick: (
     kelvin: number | null,
     lightId: string,
     brightness: number,
+    lightness: number | null,
     saturation: number | null,
-    hue: number | null
+    hue: number | null,
+    groupId: string
   ) => Promise<void>;
   handleDelete: (id: number) => Promise<void>;
   isOnCooldown: boolean;
 }) {
   let backgroundColor: string;
   if (kelvin) {
-    const [hue, saturation, lightness] = kelvinToHsl(kelvin);
+    const { hue, saturation, lightness } = kelvinToHsl(kelvin);
     backgroundColor = `hsl(${hue}, ${saturation * 100}%, ${lightness}%)`;
   } else {
     backgroundColor = `hsl(${hue}, ${saturation! * 100}%, ${lightness}%)`;
@@ -41,7 +44,15 @@ export default function Preset({
         backgroundColor,
       }}
       onClick={async () =>
-        handleClick(kelvin, lightId, brightness, saturation, hue)
+        handleClick(
+          kelvin,
+          lightId,
+          brightness,
+          lightness,
+          saturation,
+          hue,
+          groupId
+        )
       }
     >
       {label}

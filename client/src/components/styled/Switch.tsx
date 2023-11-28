@@ -5,24 +5,23 @@ import { motion } from "framer-motion";
 import { type MouseEvent, useState } from "react";
 
 export default function Switch({
-  color: { hue, saturation },
+  color: { hue, saturation, lightness },
   size = "md",
   power,
   toggle,
 }: {
-  color: { hue: number; saturation: number };
+  color: { hue: number; saturation: number; lightness: number };
   size?: "sm" | "md";
   power: Power;
-  toggle: () => void;
+  toggle: () => Promise<void>;
 }) {
-  const [isOn, setIsOn] = useState(power === "on");
+  const isOn = power === "on";
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const handleToggle = (e: MouseEvent<HTMLDivElement>) => {
+  const handleToggle = async (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     if (!isOnCooldown) {
-      setIsOn(!isOn);
       setIsOnCooldown(true);
-      toggle();
+      await toggle();
 
       setTimeout(() => {
         setIsOnCooldown(false);
@@ -41,8 +40,8 @@ export default function Switch({
       )}
       style={{
         backgroundColor: isOn
-          ? `hsl(${hue}, ${saturation - 30}%, 50%)`
-          : `hsl(${hue}, ${saturation - 30}%, 40%)`,
+          ? `hsl(${hue}, ${saturation - 30}%, ${lightness}%)`
+          : `hsl(${hue}, ${saturation - 30}%, ${lightness - 10}%)`,
       }}
       onClick={handleToggle}
       variants={itemVariant}
@@ -65,8 +64,8 @@ export default function Switch({
           })}
           style={{
             backgroundColor: isOn
-              ? `hsl(${hue}, ${saturation}%, 50%)`
-              : `hsl(${hue}, ${saturation}%, 40%)`,
+              ? `hsl(${hue}, ${saturation}%, ${lightness}%)`
+              : `hsl(${hue}, ${saturation}%, ${lightness - 10}%)`,
           }}
         />
       </motion.div>

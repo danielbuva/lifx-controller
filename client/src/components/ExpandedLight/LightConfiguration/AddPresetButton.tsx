@@ -12,6 +12,7 @@ export default function AddPresetButton() {
     let presetId: number | null;
     if (isColor) {
       presetId = await addPreset({
+        groupId: activeLight.group.id,
         lightId: activeLight.id,
         label,
         hue: lightConfig.hue,
@@ -22,6 +23,7 @@ export default function AddPresetButton() {
       });
     } else {
       presetId = await addPreset({
+        groupId: activeLight.group.id,
         lightId: activeLight.id,
         label,
         hue: null,
@@ -38,6 +40,7 @@ export default function AddPresetButton() {
             ...prev,
             {
               id: presetId as number,
+              groupId: activeLight.group.id,
               lightId: activeLight.id,
               label,
               hue: lightConfig.hue,
@@ -51,6 +54,7 @@ export default function AddPresetButton() {
         return [
           {
             id: presetId as number,
+            groupId: activeLight.group.id,
             lightId: activeLight.id,
             label,
             hue: lightConfig.hue,
