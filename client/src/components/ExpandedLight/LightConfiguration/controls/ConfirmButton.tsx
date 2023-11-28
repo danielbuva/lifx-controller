@@ -2,13 +2,26 @@ import useActiveLight from "@/hooks/useActiveLight";
 import useLifxState from "@/hooks/useLifxState";
 import useSliderData from "@/hooks/useSliderData";
 import { cn } from "@/lib/utils";
+import { Power } from "@server/types";
+import { useState } from "react";
 
 export default function ConfirmButton() {
+  const [isOnCooldown, setIsOnCooldown] = useState(false);
   const { lightConfig, isColor } = useSliderData();
-  const { setHslbk, isOnCooldown } = useLifxState();
-  const { activeLight } = useActiveLight();
+  const { setHslbk } = useLifxState();
+  const { activeLight, setActiveLight } = useActiveLight();
   if (!activeLight) return null;
   const handleClick = async () => {
+    if (isOnCooldown) return;
+    setActiveLight((prev) => {
+      if (prev) {
+        return {
+          ...prev,
+          power: prev.power === Power.ON ? Power.OFF : Power.ON,
+        };
+      }
+      return prev;
+    });
     if (isColor) {
       await setHslbk({
         hslbk: lightConfig,
@@ -22,6 +35,8 @@ export default function ConfirmButton() {
         lightId: activeLight.id,
       });
     }
+    setIsOnCooldown(true);
+    setTimeout(() => setIsOnCooldown(false), 1000);
   };
   return (
     <button
