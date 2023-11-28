@@ -6,6 +6,8 @@ import { Power, type Group } from "@server/types";
 import type { ReactNode } from "react";
 import { useReducer, useState } from "react";
 
+import Layout from "./Layout";
+
 type SetSwitchState = {
   type: "set hslbk";
   payload: {
@@ -85,7 +87,7 @@ export default function LifxStateProvider({
         setActiveLightIndices,
       }}
     >
-      {children}
+      <Layout>{children}</Layout>
     </LifxStateContext.Provider>
   );
 }

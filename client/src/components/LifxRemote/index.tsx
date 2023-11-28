@@ -1,18 +1,18 @@
 import ExpandedLight from "@/components/ExpandedLight";
 import PresetsCard from "@/components/PresetsCard";
-import Layout from "@/components/wrappers/Layout";
+import LifxStateProvider from "@/components/wrappers/LifxStateProvider";
 import PresetsProvider from "@/components/wrappers/PresetsProvider";
 
 import Groups from "./Groups";
 
 export default function LifxRemote() {
   return (
-    <Layout>
+    <LifxStateProvider>
       <Groups />
       <PresetsProvider>
         <ExpandedLight />
         <PresetsCard />
       </PresetsProvider>
-    </Layout>
+    </LifxStateProvider>
   );
 }
