@@ -12,19 +12,12 @@ export default function ConfirmButton() {
   if (!activeLight) return null;
   const handleClick = async () => {
     if (isOnCooldown) return;
-    if (isColor) {
-      await setHslbk({
-        hslbk: lightConfig,
-        groupId: activeLight.group.id,
-        lightId: activeLight.id,
-      });
-    } else {
-      await setHslbk({
-        hslbk: lightConfig,
-        groupId: activeLight.group.id,
-        lightId: activeLight.id,
-      });
-    }
+    await setHslbk({
+      hslbk: lightConfig,
+      groupId: activeLight.group.id,
+      lightId: activeLight.id,
+      isColor,
+    });
     setIsOnCooldown(true);
     setTimeout(() => setIsOnCooldown(false), 1000);
   };

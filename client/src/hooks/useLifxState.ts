@@ -14,6 +14,7 @@ export const LifxStateContext = createContext<{
     hslbk: HSLBK;
     groupId: string;
     lightId: string;
+    isColor: boolean;
   }) => Promise<void>;
   activeLightIndices: { groupI: number; lightI: number } | null;
   setActiveLightIndices: Dispatch<

@@ -57,16 +57,18 @@ export default function LifxStateProvider({
     hslbk,
     groupId,
     lightId,
+    isColor,
   }: {
     hslbk: HSLBK;
     groupId: string;
     lightId: string;
+    isColor: boolean;
   }) => {
     dispatchLifx({
       type: "set hslbk",
       payload: { groupId, lightId, hslbk },
     });
-    if (hslbk.saturation === 0) {
+    if (isColor) {
       await setLightState({ id: lightId, color: createWhiteBody(hslbk) });
     } else {
       await setLightState({ id: lightId, color: createColorBody(hslbk) });

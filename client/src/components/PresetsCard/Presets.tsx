@@ -8,8 +8,8 @@ import Preset from "./Preset";
 
 export default function Presets({ id }: { id?: string }) {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
-  const { setHslbk } = useLifxState();
   const { presets, setPresets } = usePresets();
+  const { setHslbk } = useLifxState();
 
   if (!presets || presets.length === 0) return null;
 
@@ -33,23 +33,23 @@ export default function Presets({ id }: { id?: string }) {
           hslbk: { ...kelvinToHsl(kelvin), brightness, kelvin },
           groupId,
           lightId,
+          isColor: false,
         });
       } else if (hue != null && saturation != null) {
         await setHslbk({
           hslbk: {
             hue,
             saturation,
-            lightness: 50,
+            lightness: lightness ?? 50,
             brightness,
             kelvin: 1500,
           },
           groupId,
           lightId,
+          isColor: true,
         });
       }
-      setTimeout(() => {
-        setIsOnCooldown(false);
-      }, 1000);
+      setTimeout(() => setIsOnCooldown(false), 1000);
     }
   };
 

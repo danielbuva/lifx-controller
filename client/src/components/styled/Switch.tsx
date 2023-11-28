@@ -23,9 +23,7 @@ export default function Switch({
       setIsOnCooldown(true);
       await toggle();
 
-      setTimeout(() => {
-        setIsOnCooldown(false);
-      }, 1000);
+      setTimeout(() => setIsOnCooldown(false), 1000);
     }
   };
   return (
