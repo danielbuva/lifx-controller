@@ -17,7 +17,7 @@ export default function ConfirmButton() {
       if (prev) {
         return {
           ...prev,
-          power: prev.power === Power.ON ? Power.OFF : Power.ON,
+          power: Power.ON,
         };
       }
       return prev;
