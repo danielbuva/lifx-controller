@@ -15,9 +15,9 @@ export default function Groups() {
           header={
             <GroupCardHeader name={group.groupName} power={group.power} />
           }
-          lights={group.lights.map((light) => {
-            return <GroupLightCard key={light.id} light={light} />;
-          })}
+          lights={group.lights.map((light) => (
+            <GroupLightCard key={light.id} light={light} />
+          ))}
         />
       ))}
     </div>
