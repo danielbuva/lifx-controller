@@ -16,7 +16,6 @@ export default function Switch({
   power: Power;
   toggle: () => Promise<void>;
 }) {
-  const isOn = power === "on";
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const handleToggle = async (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -34,15 +33,16 @@ export default function Switch({
       className={cn(
         "h-7 w-14 justify-start rounded-full flex items-center box-border p-[2px] cursor-pointer transition-all-[0.3s] select-none",
         {
-          "justify-end": isOn,
+          "justify-end": power === "on",
           "h-8 w-16": size === "md",
           "cursor-wait": isOnCooldown,
         }
       )}
       style={{
-        backgroundColor: isOn
-          ? `hsl(${hue}, ${saturation - 30}%, ${lightness}%)`
-          : `hsl(${hue}, ${saturation - 30}%, ${lightness - 10}%)`,
+        backgroundColor:
+          power === "on"
+            ? `hsl(${hue}, ${saturation - 30}%, ${lightness}%)`
+            : `hsl(${hue}, ${saturation - 30}%, ${lightness - 10}%)`,
       }}
       onClick={handleToggle}
       variants={itemVariant}
@@ -64,9 +64,10 @@ export default function Switch({
             "h-6 w-6": size === "md",
           })}
           style={{
-            backgroundColor: isOn
-              ? `hsl(${hue}, ${saturation}%, ${lightness}%)`
-              : `hsl(${hue}, ${saturation}%, ${lightness - 10}%)`,
+            backgroundColor:
+              power === "on"
+                ? `hsl(${hue}, ${saturation}%, ${lightness}%)`
+                : `hsl(${hue}, ${saturation}%, ${lightness - 10}%)`,
           }}
         />
       </motion.div>
