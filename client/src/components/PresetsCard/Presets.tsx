@@ -11,7 +11,11 @@ export default function Presets({ id }: { id?: string }) {
   const { presets, setPresets } = usePresets();
   const { setHslbk } = useLifxState();
 
-  if (!presets || presets.length === 0) return null;
+  if (!presets || presets.length === 0) {
+    return (
+      <div className="h-24 bg-theme w-full rounded-bl-md rounded-br-md" />
+    );
+  }
 
   const presetsToShow = id
     ? presets.filter((p) => p.lightId === id)
@@ -62,7 +66,7 @@ export default function Presets({ id }: { id?: string }) {
   return (
     <div
       className={cn(
-        "h-24 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row",
+        "h-24 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row border-2 border-red-500",
         { "cursor-wait": isOnCooldown }
       )}
     >
