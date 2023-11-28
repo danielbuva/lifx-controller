@@ -7,8 +7,6 @@ import { GroupLightCard } from "./GroupCard/GroupLightCard";
 export default function Groups() {
   const { lifxState } = useLifxState();
 
-  console.log("lifxstate: ", lifxState[0]?.lights[1]?.power);
-
   return (
     <div className="flex gap-4">
       {lifxState.map((item) => (
