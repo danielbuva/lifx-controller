@@ -6,11 +6,9 @@ import { motion } from "framer-motion";
 import { itemVariant } from "./utils";
 
 export default function GroupCardHeader({
-  groupName,
   name,
   power,
 }: {
-  groupName: string;
   name: string;
   power: Power;
 }) {
@@ -25,7 +23,7 @@ export default function GroupCardHeader({
       <Switch
         color={{ hue: 0, saturation: 0, lightness: 50 }}
         power={power}
-        toggle={() => togglePower("group:" + groupName)}
+        toggle={() => togglePower("group:" + name)}
       />
     </motion.div>
   );

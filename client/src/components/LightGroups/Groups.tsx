@@ -13,11 +13,7 @@ export default function Groups() {
         <GroupCard
           key={group.groupId}
           header={
-            <GroupCardHeader
-              groupName={group.groupName}
-              name={group.groupName}
-              power={group.power}
-            />
+            <GroupCardHeader name={group.groupName} power={group.power} />
           }
           lights={group.lights.map((light) => {
             return <GroupLightCard key={light.id} light={light} />;
