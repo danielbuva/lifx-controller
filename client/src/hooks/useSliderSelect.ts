@@ -6,7 +6,7 @@ import useSlideData from "./useSliderData";
 
 export default function useSliderSelect({
   configSelection,
-  normalizeFrom = 0,
+  normalizeFrom = 0.01,
   normalizeTo = 1,
 }: {
   configSelection: keyof LightConfigState;
