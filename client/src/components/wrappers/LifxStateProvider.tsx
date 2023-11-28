@@ -69,9 +69,9 @@ export default function LifxStateProvider({
       payload: { groupId, lightId, hslbk },
     });
     if (isColor) {
-      await setLightState({ id: lightId, color: createWhiteBody(hslbk) });
-    } else {
       await setLightState({ id: lightId, color: createColorBody(hslbk) });
+    } else {
+      await setLightState({ id: lightId, color: createWhiteBody(hslbk) });
     }
   };
 
@@ -123,7 +123,7 @@ function lifxReducer(state: Group[], action: LifxAction) {
             newLight.color = { ...l.color };
             newLight.color.hue = action.payload.hslbk.hue;
             newLight.color.saturation = action.payload.hslbk.saturation;
-            newLight.lightness = action.payload.hslbk.lightness;
+            newLight.color.lightness = action.payload.hslbk.lightness;
             newLight.brightness = action.payload.hslbk.brightness;
             newLight.power = Power.ON;
             return newLight;
