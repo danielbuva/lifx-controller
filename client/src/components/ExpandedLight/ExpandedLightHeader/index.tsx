@@ -1,6 +1,6 @@
 import Switch from "@/components/styled/Switch";
 import useLifxState from "@/hooks/useLifxState";
-import { hsbkToHsl } from "@/lib/utils";
+import { hslkToHsl } from "@/lib/utils";
 import { type Light } from "@server/types";
 import { motion } from "framer-motion";
 
@@ -30,7 +30,7 @@ export default function ExpandedLightHeader({ light }: { light: Light }) {
         variants={expanded}
       >
         <Switch
-          hsl={hsbkToHsl(light.color)}
+          hsl={hslkToHsl(light.color)}
           power={light.power}
           toggle={async () => {
             await toggleSwitch({

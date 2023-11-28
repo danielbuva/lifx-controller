@@ -1,7 +1,7 @@
 import Switch from "@/components/styled/Switch";
 import useActiveLight from "@/hooks/useActiveLight";
 import useLifxState from "@/hooks/useLifxState";
-import { cn, hsbkToHsl } from "@/lib/utils";
+import { cn, hslkToHsl } from "@/lib/utils";
 import type { Light } from "@server/types";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -69,7 +69,7 @@ export function GroupLightCard({
             >
               <Switch
                 size="sm"
-                hsl={hsbkToHsl(light.color)}
+                hsl={hslkToHsl(light.color)}
                 power={light.power}
                 toggle={async () =>
                   toggleSwitch({
