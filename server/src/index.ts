@@ -28,9 +28,9 @@ const app = new Elysia()
         );
         light.color.hue = hue;
         light.color.saturation = saturation;
-        light.lightness = lightness;
+        light.color.lightness = lightness;
       } else {
-        light.lightness = 50;
+        light.color.lightness = 50;
       }
       const groupName = light.group.name;
       const groupOfLights = groupedLights[groupName];

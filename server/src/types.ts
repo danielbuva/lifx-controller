@@ -7,8 +7,12 @@ export enum Power {
 
 export type Light = {
   brightness: number;
-  color: { hue: number; saturation: number; kelvin: number };
-  lightness: number;
+  color: {
+    hue: number;
+    saturation: number;
+    lightness: number;
+    kelvin: number;
+  };
   connected: boolean;
   effect: string;
   group: { id: string; name: string };
