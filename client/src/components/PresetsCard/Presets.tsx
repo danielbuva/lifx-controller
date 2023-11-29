@@ -13,7 +13,7 @@ export default function Presets({ id }: { id?: string }) {
 
   if (!presets || presets.length === 0) {
     return (
-      <div className="h-24 bg-theme w-full rounded-bl-md rounded-br-md" />
+      <div className="h-36 bg-theme w-full rounded-bl-md rounded-br-md" />
     );
   }
 
@@ -66,7 +66,7 @@ export default function Presets({ id }: { id?: string }) {
   return (
     <div
       className={cn(
-        "h-24 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row",
+        "h-36 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row",
         { "cursor-wait": isOnCooldown }
       )}
     >

@@ -29,7 +29,7 @@ export default function Preset(
   return (
     <div
       className={cn(
-        "w-24 h-16 rounded-md text-white m-2 p-1 cursor-pointer relative",
+        "w-36 h-24 rounded-md text-white m-2 py-1 px-2 cursor-pointer relative",
         { "cursor-wait": props.isOnCooldown }
       )}
       style={{
@@ -49,13 +49,13 @@ export default function Preset(
     >
       {props.label}
       <div
-        className="absolute top-[-8px] right-[-7px] text-black bg-theme flex flex-row justify-center items-center rounded-full w-4 h-4 border-[1px] border-inverseTheme m-0 p-0 cursor-pointer opacity-0 hover:opacity-100"
+        className="text-white absolute top-[-2px] right-1"
         onClick={async (e) => {
           e.stopPropagation();
           await props.handleDelete(props.id);
         }}
       >
-        x
+        ×
       </div>
     </div>
   );
