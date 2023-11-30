@@ -1,0 +1,16 @@
+{
+  "git.autofetch": true,
+  "editor.tabSize": 2,
+  // lint on save
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "eslint.codeActionsOnSave.rules": ["!unused-imports/*", "*"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  // format on save
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
