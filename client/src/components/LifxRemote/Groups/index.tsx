@@ -1,8 +1,7 @@
+import GroupCard from "@/components/LifxRemote/Groups/GroupCard";
+import GroupCardHeader from "@/components/LifxRemote/Groups/GroupCard/GroupCardHeader";
+import { GroupLightCard } from "@/components/LifxRemote/Groups/GroupCard/GroupLightCard";
 import useLifxState from "@/hooks/useLifxState";
-
-import GroupCard from "./GroupCard";
-import GroupCardHeader from "./GroupCard/GroupCardHeader";
-import { GroupLightCard } from "./GroupCard/GroupLightCard";
 
 export default function Groups() {
   const { lifxState } = useLifxState();

@@ -1,5 +1,5 @@
-import ExpandedLight from "@/components/ExpandedLight";
-import PresetsCard from "@/components/PresetsCard";
+import ExpandedLight from "@/components/LifxRemote/ExpandedLight";
+import PresetsCard from "@/components/LifxRemote/PresetsCard";
 import LifxStateProvider from "@/components/wrappers/LifxStateProvider";
 import PresetsProvider from "@/components/wrappers/PresetsProvider";
 

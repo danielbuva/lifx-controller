@@ -1,4 +1,4 @@
-import Switch from "@/components/Switch";
+import Switch from "@/components/LifxRemote/Switch";
 import { togglePower } from "@/lib/elysia";
 import type { Power } from "@server/types";
 import { motion } from "framer-motion";

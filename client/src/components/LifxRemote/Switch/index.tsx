@@ -1,4 +1,4 @@
-import { itemVariant } from "@/components/LifxRemote/GroupCard/utils";
+import { itemVariant } from "@/components/LifxRemote/Groups/GroupCard/utils";
 import type { HSL } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import type { Power } from "@server/types";

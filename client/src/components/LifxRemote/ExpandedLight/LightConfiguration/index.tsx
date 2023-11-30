@@ -1,5 +1,5 @@
-import ColorOrWhite from "@/components/ExpandedLight/LightConfiguration/controls/ColorOrWhite";
-import Presets from "@/components/PresetsCard/Presets";
+import ColorOrWhite from "@/components/LifxRemote/ExpandedLight/LightConfiguration/controls/ColorOrWhite";
+import Presets from "@/components/LifxRemote/PresetsCard/Presets";
 import { SliderContext } from "@/hooks/useSliderData";
 import type { LightConfigState } from "@/lib/types";
 import type { Light } from "@server/types";
