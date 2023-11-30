@@ -19,6 +19,10 @@ To run the this project on your local machine, please follow the steps below:
 
 2. **Install Dependencies:**
 
+- At the root directory:
+  ```bash
+  bun install
+  ```
 - Navigate to the server directory:
   ```bash
   cd server
