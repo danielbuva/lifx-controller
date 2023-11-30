@@ -1,11 +1,11 @@
 # lifx-controller
 
+web controller for lifx ଘ(๑ ｀ ᵕ ´) ๑ ━☆ ﾟ ✶｡˖⁺ ✦ ⋆˙⊹ 𓆏⁺‧₊
+(for when you can't find your phone)
+
 ![Example Screenshot](screenshots/main.png)
 ![Example Screenshot](screenshots/color-light.png)
 ![Example Screenshot](screenshots/white-light.png)
-
-web controller for lifx
-(for when you can't find your phone)
 
 ## Launching the Application Locally
 
