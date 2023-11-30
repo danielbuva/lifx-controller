@@ -1,5 +1,10 @@
 {
   "name": "lifx-controller",
+  "scripts": {
+    "client": "cd client && bun dev",
+    "server": "cd server && bun dev",
+    "prettier": "prettier --write \"./**/*.{ts,tsx}\""
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",

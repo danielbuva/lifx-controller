@@ -46,6 +46,14 @@ To run the this project on your local machine, please follow the steps below:
   ```bash
   bun dev
   ```
+- Or at the root run
+  ```bash
+  bun client
+  ```
+  and
+  ```bash
+  bun server
+  ```
 
 7. **Access the application:**
 
