@@ -6,7 +6,7 @@ export default function PresetsCard() {
       <div className="flex flex-row justify-between bg-slate-600 p-4 rounded-tl-md rounded-tr-md">
         <h2 className="text-xl font-semibold text-white">presets</h2>
       </div>
-      <Presets />
+      <Presets className="max-w-[990px] overflow-scroll" />
     </div>
   );
 }

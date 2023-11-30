@@ -6,7 +6,13 @@ import { useState } from "react";
 
 import Preset from "./Preset";
 
-export default function Presets({ id }: { id?: string }) {
+export default function Presets({
+  id,
+  className,
+}: {
+  id?: string;
+  className?: string;
+}) {
   const [isOnCooldown, setIsOnCooldown] = useState(false);
   const { presets, setPresets } = usePresets();
   const { setHslbk } = useLifxState();
@@ -67,7 +73,7 @@ export default function Presets({ id }: { id?: string }) {
     <div
       className={cn(
         "h-36 bg-theme w-full rounded-bl-md rounded-br-md p-2 flex flex-row",
-        { "cursor-wait": isOnCooldown }
+        { "cursor-wait": isOnCooldown, [className ?? ""]: true }
       )}
     >
       {presetsToShow.map((preset) => (

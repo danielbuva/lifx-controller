@@ -29,11 +29,12 @@ export default function Preset(
   return (
     <div
       className={cn(
-        "w-36 h-24 rounded-md text-white m-2 py-1 px-2 cursor-pointer relative",
+        "h-24 rounded-md text-white m-2 py-1 px-2 cursor-pointer relative",
         { "cursor-wait": props.isOnCooldown }
       )}
       style={{
         backgroundColor,
+        minWidth: "144px",
       }}
       onClick={async () =>
         props.handleClick(

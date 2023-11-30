@@ -41,7 +41,10 @@ export default function LightConfiguration({ light }: { light: Light }) {
           {isColor ? <ColorControls /> : <WhiteControls />}
         </SliderContext.Provider>
       </div>
-      <Presets id={light.id} />
+      <Presets
+        id={light.id}
+        className="flex-col overflow-scroll w-44 h-[356px]"
+      />
     </motion.div>
   );
 }
