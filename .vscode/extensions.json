@@ -3,7 +3,6 @@
     "eamodio.gitlens", // for viewing git history
     "esbenp.prettier-vscode", // for auto-formatting
     "dbaeumer.vscode-eslint", // for avoiding style errors
-    "MS-vsliveshare.vsliveshare", // for co-programming
     "bradlc.vscode-tailwindcss" // for tailwind autocomplete
   ]
 }
