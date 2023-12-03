@@ -1,9 +1,9 @@
 {
-  "extends": "./tsconfig.json", // Extend your base tsconfig
+  "extends": "./tsconfig.json", // extend base tsconfig
   "include": [
-    "client/**/*", // Include all files in client
-    "server/**/*", // Include all files in server
-    "/*.config.js", // Include root config files
-    "/*.config.ts" // Include root config files
+    "client/**/*", // include all files in client
+    "server/**/*", // include all files in server
+    "/*.config.js", // include root config files
+    "/*.config.ts" // include root config files
   ]
 }
