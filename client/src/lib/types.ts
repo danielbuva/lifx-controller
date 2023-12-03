@@ -8,16 +8,6 @@ export interface LightConfigState {
   saturation: number;
 }
 
-export type SwitchState = {
-  lightId: string;
-  color: {
-    hue: number;
-    saturation: number;
-    lightness: number;
-  };
-  power: Power;
-};
-
 export type HSL = {
   hue: number;
   saturation: number;
@@ -27,4 +17,10 @@ export type HSL = {
 export type HSLBK = HSL & {
   brightness: number;
   kelvin: number;
+};
+
+export type SwitchState = {
+  lightId: string;
+  color: HSL;
+  power: Power;
 };
